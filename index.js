@@ -6,10 +6,20 @@ var humanWinKeys = {
   peace: ['rock', 'scissors'],
 };
 var currentGame;
+var humanPlayer;
+var computerPlayer;
 
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
+}
+
+function createPlayer(name, token) {
+  return {
+    name: name,
+    token: token,
+    wins: 0,
+  }
 }
 
 function createGame(mode, player1, player2) {
@@ -28,13 +38,15 @@ function createGame(mode, player1, player2) {
 function checkWins(game, selection1, selection2) {
   var humanSelection = selection1;
   var computerSelection = selection2;
+  var humanToken = game.player1.token;
+  var computerToken = game.player2.token;
  
   if (humanSelection === computerSelection) {
     return `it\'s a draw`
   } else if (humanWinKeys[humanSelection].includes(computerSelection)) {
-    return `${humanSelection} beats ${computerSelection} -- ${game.player1} wins!`
+    return `${humanToken}${humanSelection} beats ${computerSelection} -- ${game.player1.name} wins!${humanToken}`
   } else {
-    return `${computerSelection} beats ${humanSelection} -- ${game.player2} wins!`
+    return `${computerToken}${computerSelection} beats ${humanSelection} -- ${game.player2.name} wins!${computerToken}`
   }
 }
 
@@ -43,5 +55,8 @@ function takeTurn(currentGame, selection1) {
   var winMsg = checkWins(currentGame, selection1, selection2);
   console.log(winMsg);
 }
-currentGame = createGame('classic', 'laura', 'computer')
-takeTurn(currentGame, 'rock')
+
+humanPlayer = createPlayer('laura', '<3');
+computerPlayer = createPlayer('computer', 'x')
+currentGame = createGame('hippie', humanPlayer, computerPlayer)
+takeTurn(currentGame, 'love')
