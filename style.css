@@ -1,0 +1,88 @@
+/* GENERAL */
+html {
+  font-family: Poppins;
+  text-align: center;
+  background: pink;
+  height: 100vh;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  background: pink;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+}
+
+h2, p {
+  margin: 0;
+}
+
+img {
+  max-height: 50%;
+  max-width: 50%;
+}
+
+/* MAIN DISPLAY */
+.game-console {
+  max-width: 70%;
+}
+
+.home-view {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-mode {
+  border-radius: 5%;
+  background: rgb(244, 206, 213);
+  width: 250px;
+  max-width: 80%;
+  padding: 3%;
+  margin: 5%;
+  cursor: pointer;
+}
+
+.game-mode:hover {
+  background: rgb(254, 219, 248)
+}
+
+.player-section {
+  background: rgb(244, 206, 213);
+  height: 100%;
+  width: 120px;
+  padding: 2%;
+}
+.person-icon, .computer-icon {
+  max-height: 30px;
+  max-width: 30px;
+}
+/* GAME BOARD */
+
+.fighter {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+}
+
+.fighter-choice-view {
+  min-height: 80vh;
+  max-height: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* flex-wrap: wrap; */
+}
+
+/* OVERRIDES */
+.hidden {
+  display: none;
+}
