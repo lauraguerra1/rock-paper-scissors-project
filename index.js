@@ -9,6 +9,10 @@ var currentGame;
 var humanPlayer;
 var computerPlayer;
 
+window.addEventListener('load', function () {
+  humanPlayer = createPlayer('human');
+  computerPlayer = createPlayer('computer')
+})
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -17,7 +21,7 @@ function getRandomIndex(array) {
 function createPlayer(name, token) {
   return {
     name: name,
-    token: token,
+    token: token || 'x',
     wins: 0,
   }
 }
@@ -55,8 +59,3 @@ function takeTurn(currentGame, selection1) {
   var winMsg = checkWins(currentGame, selection1, selection2);
   console.log(winMsg);
 }
-
-humanPlayer = createPlayer('laura', '<3');
-computerPlayer = createPlayer('computer', 'x')
-currentGame = createGame('hippie', humanPlayer, computerPlayer)
-takeTurn(currentGame, 'love')
