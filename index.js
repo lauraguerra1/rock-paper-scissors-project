@@ -7,6 +7,11 @@ var humanWinKeys = {
 };
 var currentGame;
 
+
+function getRandomIndex(array) {
+  return Math.floor(Math.random() * array.length);
+}
+
 function createGame(mode, player1, player2) {
   var boardType = {
     classic: ['rock', 'paper', 'scissors'],
@@ -33,9 +38,10 @@ function checkWins(game, selection1, selection2) {
   }
 }
 
-function takeTurn(currentGame, selection1, selection2) {
+function takeTurn(currentGame, selection1) {
+  var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
   var winMsg = checkWins(currentGame, selection1, selection2);
   console.log(winMsg);
 }
 currentGame = createGame('classic', 'laura', 'computer')
-takeTurn(currentGame, 'rock', 'paper')
+takeTurn(currentGame, 'rock')
