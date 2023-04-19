@@ -6,6 +6,10 @@ html {
   height: 100vh;
 }
 
+body {
+  margin: 0 auto; 
+}
+
 main {
   display: flex;
   justify-content: space-between;
@@ -87,7 +91,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* flex-wrap: wrap; */
+  flex-wrap: wrap;
 }
 
 /* WINNER VIEW */
@@ -97,7 +101,7 @@ img {
   align-items: center;
 }
 
-.human-selection, .computer-selection, .celebration {
+.human-selection, .computer-selection, .gif {
   max-height: 40%;
   max-width: 40%;
 }
