@@ -1,3 +1,9 @@
+// GLOBAL VARIABLES
+var classicMode = document.querySelector('#classic');
+var hippieMode = document.querySelector('#hippie');
+var choiceViews = Array.from(document.querySelectorAll('.fighter-choice-view'));
+var homeView = document.querySelector('.home-view');
+var mainMsg = document.querySelector('.main-message');
 var humanWinKeys = {
   rock: ['scissors', 'love'],
   paper: ['rock', 'peace'],
@@ -9,6 +15,13 @@ var currentGame;
 var humanPlayer;
 var computerPlayer;
 
+// EVENT LISTENERS
+window.addEventListener('load', function () {
+  humanPlayer = createPlayer('human');
+  computerPlayer = createPlayer('computer')
+})
+classicMode.addEventListener('click', startNewGame);
+hippieMode.addEventListener('click', startNewGame);
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -17,7 +30,7 @@ function getRandomIndex(array) {
 function createPlayer(name, token) {
   return {
     name: name,
-    token: token,
+    token: token || 'x',
     wins: 0,
   }
 }
@@ -33,6 +46,18 @@ function createGame(mode, player1, player2) {
     player1: player1,
     player2: player2,
   };
+}
+
+function startNewGame(e) {
+  currentGame = createGame(e.target.parentNode.id, humanPlayer, computerPlayer);
+  showFighterChoices(currentGame.mode);
+}
+
+function showFighterChoices(mode) {
+  var chosenView = choiceViews.filter((view) => view.classList.contains(mode));
+  chosenView[0].classList.remove('hidden');
+  homeView.classList.add('hidden');
+  mainMsg.innerText = 'Choose your fighter!';
 }
 
 function checkWins(game, selection1, selection2) {
@@ -55,8 +80,3 @@ function takeTurn(currentGame, selection1) {
   var winMsg = checkWins(currentGame, selection1, selection2);
   console.log(winMsg);
 }
-
-humanPlayer = createPlayer('laura', '<3');
-computerPlayer = createPlayer('computer', 'x')
-currentGame = createGame('hippie', humanPlayer, computerPlayer)
-takeTurn(currentGame, 'love')
