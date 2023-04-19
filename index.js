@@ -81,6 +81,7 @@ function showFighterChoices(mode) {
   var chosenView = choiceViews.filter((view) => view.classList.contains(mode));
   changeView(chosenView[0], 'show');
   changeView(homeView, 'hide');
+  changeView(winnerView, 'hide');
   mainMsg.innerText = 'Choose your fighter!';
 }
 
@@ -109,8 +110,6 @@ function takeTurn(e) {
 
 function displayResults(msg, selection1, selection2) {
   choiceViews.forEach((view) => changeView(view, 'hide'));
-  // humanSelection.innerHTML = '';
-  // computerSelection.innerHTML = '';
   humanSelection.innerHTML = fighters[selection1].innerHTML;
   computerSelection.innerHTML = fighters[selection2].innerHTML;
   mainMsg.innerText = msg;
