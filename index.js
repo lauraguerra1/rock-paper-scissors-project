@@ -2,6 +2,7 @@
 var classicMode = document.querySelector('#classic');
 var hippieMode = document.querySelector('#hippie');
 var choiceViews = Array.from(document.querySelectorAll('.fighter-choice-view'));
+var changeGameBtn = document.querySelector('.change-game-button');
 var homeView = document.querySelector('.home-view');
 var mainMsg = document.querySelector('.main-message');
 var winnerView = document.querySelector('.winner-view');
@@ -104,8 +105,9 @@ function takeTurn(e) {
   var selection1 = e.target.closest('section').classList[1];
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
   var winMsg = checkWins(currentGame, selection1, selection2);
-  displayResults(winMsg, selection1, selection2)
+  displayResults(winMsg, selection1, selection2);
   setTimeout(showFighterChoices, 2000, currentGame.mode);
+  setTimeout(changeView, 2000, changeGameBtn, 'show');
 }
 
 function displayResults(msg, selection1, selection2) {
