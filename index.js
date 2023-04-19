@@ -4,6 +4,17 @@ var hippieMode = document.querySelector('#hippie');
 var choiceViews = Array.from(document.querySelectorAll('.fighter-choice-view'));
 var homeView = document.querySelector('.home-view');
 var mainMsg = document.querySelector('.main-message');
+var winnerView = document.querySelector('.winner-view');
+var humanSelection = document.querySelector('.human-selection');
+var computerSelection = document.querySelector('.computer-selection');
+var fighters = {
+  rock: document.querySelector('.rock'),
+  paper: document.querySelector('.paper'),
+  scissors: document.querySelector('.scissors'),
+  love: document.querySelector('.love'),
+  peace: document.querySelector('.peace'),
+};
+
 var humanWinKeys = {
   rock: ['scissors', 'love'],
   paper: ['rock', 'peace'],
@@ -11,6 +22,7 @@ var humanWinKeys = {
   love: ['paper', 'peace'],
   peace: ['rock', 'scissors'],
 };
+
 var currentGame;
 var humanPlayer;
 var computerPlayer;
@@ -22,6 +34,7 @@ window.addEventListener('load', function () {
 })
 classicMode.addEventListener('click', startNewGame);
 hippieMode.addEventListener('click', startNewGame);
+choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
@@ -75,8 +88,19 @@ function checkWins(game, selection1, selection2) {
   }
 }
 
-function takeTurn(currentGame, selection1) {
+function takeTurn(e) {
+  var selection1 = e.target.closest('section').classList[1];
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
   var winMsg = checkWins(currentGame, selection1, selection2);
-  console.log(winMsg);
+  displayResults(winMsg, selection1, selection2)
+}
+
+function displayResults(msg, selection1, selection2) {
+  choiceViews.forEach((view) => view.classList.add('hidden'))
+  humanSelection.innerHTML = '';
+  computerSelection.innerHTML = '';
+  humanSelection.innerHTML += fighters[selection1].innerHTML;
+  computerSelection.innerHTML += fighters[selection2].innerHTML;
+  mainMsg.innerText = msg;
+  winnerView.classList.remove('hidden');
 }
