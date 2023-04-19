@@ -90,6 +90,17 @@ img {
   /* flex-wrap: wrap; */
 }
 
+/* WINNER VIEW */
+.winner-view {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+}
+
+.human-selection, .computer-selection {
+  max-height: 40%;
+  max-width: 40%;
+}
 /* OVERRIDES */
 .hidden {
   display: none;
