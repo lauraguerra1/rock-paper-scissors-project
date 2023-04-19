@@ -39,7 +39,7 @@ window.addEventListener('load', function () {
 classicMode.addEventListener('click', startNewGame);
 hippieMode.addEventListener('click', startNewGame);
 choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
-
+changeGameBtn.addEventListener('click', switchToHome);
 
 //EVENT HANDLERS 
 function getRandomIndex(array) {
@@ -132,4 +132,11 @@ function displayResults(msg, selection1, selection2) {
 function updateWinsDisplay(firstPlayer, secondPlayer) {
   humanWins.innerText = `Wins: ${firstPlayer.wins}`;
   computerWins.innerText = `Wins: ${secondPlayer.wins}`;
+}
+
+function switchToHome() {
+  choiceViews.forEach((view) => changeView(view, 'hide'))
+  changeView(homeView, 'show');
+  changeView(changeGameBtn, 'hide');
+  mainMsg.innerText = 'Choose your game!';
 }
