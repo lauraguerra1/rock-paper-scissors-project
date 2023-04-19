@@ -95,10 +95,18 @@ function checkWins(game, selection1, selection2) {
   if (humanSelection === computerSelection) {
     return `it\'s a draw`
   } else if (humanWinKeys[humanSelection].includes(computerSelection)) {
+    currentGame = adjustWins(game, 'player1');
     return `${humanToken}${humanSelection} beats ${computerSelection} -- ${game.player1.name} wins!${humanToken}`
   } else {
+    currentGame = adjustWins(game, 'player2');
     return `${computerToken}${computerSelection} beats ${humanSelection} -- ${game.player2.name} wins!${computerToken}`
   }
+}
+
+function adjustWins(game, player) {
+  var updatedGame = game;
+  updatedGame[player].wins += 1;
+  return updatedGame;
 }
 
 function takeTurn(e) {
