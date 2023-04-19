@@ -104,6 +104,7 @@ function takeTurn(e) {
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
   var winMsg = checkWins(currentGame, selection1, selection2);
   displayResults(winMsg, selection1, selection2)
+  setTimeout(showFighterChoices, 2000, currentGame.mode);
 }
 
 function displayResults(msg, selection1, selection2) {
