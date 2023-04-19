@@ -10,6 +10,7 @@ var humanSelection = document.querySelector('.human-selection');
 var computerSelection = document.querySelector('.computer-selection');
 var humanWins = document.querySelector('.human-wins');
 var computerWins = document.querySelector('.computer-wins');
+var consoleIcons = Array.from(document.querySelectorAll('.console-person-icon'))
 var fighters = {
   rock: document.querySelector('.rock'),
   paper: document.querySelector('.paper'),
@@ -115,8 +116,10 @@ function takeTurn(e) {
   var selection1 = e.target.closest('section').classList[1];
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
   var winMsg = checkWins(currentGame, selection1, selection2);
-  displayResults(winMsg, selection1, selection2);
-  updateWinsDisplay(currentGame.player1, currentGame.player2)
+  showPersonIcon(e);
+  setTimeout(removePersonIcon, 500);
+  setTimeout(displayResults, 500, winMsg, selection1, selection2);
+  setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2)
   setTimeout(showFighterChoices, 2000, currentGame.mode);
   setTimeout(changeView, 2000, changeGameBtn, 'show');
 }
@@ -139,4 +142,12 @@ function switchToHome() {
   changeView(homeView, 'show');
   changeView(changeGameBtn, 'hide');
   mainMsg.innerText = 'Choose your game!';
+}
+
+function showPersonIcon(e) {
+  e.target.closest('section').children[1].classList.remove('hidden')
+}
+
+function removePersonIcon() {
+  consoleIcons.forEach((icon) => changeView(icon, 'hide'))
 }
