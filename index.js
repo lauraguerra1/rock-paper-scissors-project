@@ -8,6 +8,8 @@ var mainMsg = document.querySelector('.main-message');
 var winnerView = document.querySelector('.winner-view');
 var humanSelection = document.querySelector('.human-selection');
 var computerSelection = document.querySelector('.computer-selection');
+var humanWins = document.querySelector('.human-wins');
+var computerWins = document.querySelector('.computer-wins');
 var fighters = {
   rock: document.querySelector('.rock'),
   paper: document.querySelector('.paper'),
@@ -114,6 +116,7 @@ function takeTurn(e) {
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
   var winMsg = checkWins(currentGame, selection1, selection2);
   displayResults(winMsg, selection1, selection2);
+  updateWinsDisplay(currentGame.player1, currentGame.player2)
   setTimeout(showFighterChoices, 2000, currentGame.mode);
   setTimeout(changeView, 2000, changeGameBtn, 'show');
 }
@@ -124,4 +127,9 @@ function displayResults(msg, selection1, selection2) {
   computerSelection.innerHTML = fighters[selection2].innerHTML;
   mainMsg.innerText = msg;
   changeView(winnerView, 'show');
+}
+
+function updateWinsDisplay(firstPlayer, secondPlayer) {
+  humanWins.innerText = `Wins: ${firstPlayer.wins}`;
+  computerWins.innerText = `Wins: ${secondPlayer.wins}`;
 }
