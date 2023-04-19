@@ -109,10 +109,10 @@ function takeTurn(e) {
 
 function displayResults(msg, selection1, selection2) {
   choiceViews.forEach((view) => changeView(view, 'hide'));
-  humanSelection.innerHTML = '';
-  computerSelection.innerHTML = '';
-  humanSelection.innerHTML += fighters[selection1].innerHTML;
-  computerSelection.innerHTML += fighters[selection2].innerHTML;
+  // humanSelection.innerHTML = '';
+  // computerSelection.innerHTML = '';
+  humanSelection.innerHTML = fighters[selection1].innerHTML;
+  computerSelection.innerHTML = fighters[selection2].innerHTML;
   mainMsg.innerText = msg;
   changeView(winnerView, 'show');
 }
