@@ -61,15 +61,23 @@ img {
   max-height: 30px;
   max-width: 30px;
 }
-/* GAME BOARD */
 
+/* BUTTONS */
+.change-game-button {
+  margin-top: 50%;
+  background: pink;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* GAME BOARD */
 .fighter {
+  height: 300px;
+  width: 300px;
   display: flex; 
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 300px;
-  width: 300px;
 }
 
 .fighter-choice-view {
