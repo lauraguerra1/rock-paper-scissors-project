@@ -27,6 +27,7 @@ var currentGame;
 var humanPlayer;
 var computerPlayer;
 
+
 // EVENT LISTENERS
 window.addEventListener('load', function () {
   humanPlayer = createPlayer('human');
@@ -36,8 +37,18 @@ classicMode.addEventListener('click', startNewGame);
 hippieMode.addEventListener('click', startNewGame);
 choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
 
+
+//EVENT HANDLERS 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
+}
+
+function changeView(domElement, display) {
+  if (display === 'show') {
+    domElement.classList.remove('hidden')
+  } else if (display === 'hide') {
+    domElement.classList.add('hidden')
+  }
 }
 
 function createPlayer(name, token) {
@@ -68,8 +79,8 @@ function startNewGame(e) {
 
 function showFighterChoices(mode) {
   var chosenView = choiceViews.filter((view) => view.classList.contains(mode));
-  chosenView[0].classList.remove('hidden');
-  homeView.classList.add('hidden');
+  changeView(chosenView[0], 'show');
+  changeView(homeView, 'hide');
   mainMsg.innerText = 'Choose your fighter!';
 }
 
@@ -96,11 +107,11 @@ function takeTurn(e) {
 }
 
 function displayResults(msg, selection1, selection2) {
-  choiceViews.forEach((view) => view.classList.add('hidden'))
+  choiceViews.forEach((view) => changeView(view, 'hide'));
   humanSelection.innerHTML = '';
   computerSelection.innerHTML = '';
   humanSelection.innerHTML += fighters[selection1].innerHTML;
   computerSelection.innerHTML += fighters[selection2].innerHTML;
   mainMsg.innerText = msg;
-  winnerView.classList.remove('hidden');
+  changeView(winnerView, 'show');
 }
