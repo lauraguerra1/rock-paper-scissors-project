@@ -56,9 +56,10 @@ img {
 .token-option {
   max-height: 10%;
   max-width: 10%;
+  cursor: pointer;
 }
 
-.token-option:hover {
+.token-option:hover, .selected-token {
   border-radius: 10px;
   background:rgb(172, 172, 235);
 }

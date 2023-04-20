@@ -10,7 +10,15 @@ var humanSelection = document.querySelector('.human-selection');
 var computerSelection = document.querySelector('.computer-selection');
 var humanWins = document.querySelector('.human-wins');
 var computerWins = document.querySelector('.computer-wins');
-var consoleIcons = Array.from(document.querySelectorAll('.console-person-icon'))
+var userIcon = document.querySelector('.person-icon');
+var consoleIcons = Array.from(document.querySelectorAll('.console-person-icon'));
+var loginView = document.querySelector('.login-view')
+var userName = document.querySelector('#name');
+var playerName = document.querySelector('.player-name');
+var loginBtn = document.querySelector('.login-button');
+var errorMsg = document.querySelector('.error-message');
+var tokenSection = document.querySelector('.token-wrapper');
+var tokenOptions = Array.from(document.querySelectorAll('.token-option'));
 var fighters = {
   rock: document.querySelector('.rock'),
   paper: document.querySelector('.paper'),
@@ -27,16 +35,27 @@ var humanWinKeys = {
   peace: ['rock', 'scissors'],
 };
 
+var tokens = {
+  '💁‍♀️': 'icons/waving-person.png',
+  '🤠': 'icons/cowboy.png',
+  '🦋': 'icons/butterfly.png',
+  '🦄': 'icons/unicorn.png',
+  '🌸': 'icons/flower.png'
+}
+
 var currentGame;
 var humanPlayer;
 var computerPlayer;
+var selectedToken;
 
 
 // EVENT LISTENERS
-window.addEventListener('load', function () {
-  humanPlayer = createPlayer('human');
-  computerPlayer = createPlayer('computer')
-})
+// window.addEventListener('load', function () {
+//   humanPlayer = createPlayer('human');
+//   computerPlayer = createPlayer('computer')
+// })
+tokenSection.addEventListener('click', selectToken);
+loginBtn.addEventListener('click', logIn);
 classicMode.addEventListener('click', startNewGame);
 hippieMode.addEventListener('click', startNewGame);
 choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
@@ -57,6 +76,31 @@ function switchView(domElement, display) {
     domElement.classList.remove('hidden')
     var hiddenViews = allViews.filter((view) => view !== domElement);
     hiddenViews.forEach((view) => view.classList.add('hidden'));
+  }
+}
+
+function selectToken(e) {
+  if (e.target.classList.contains('token-option')) {
+    selectedToken = e.target.classList[1];
+    tokenOptions.forEach((token) => token.classList.remove('selected-token'))
+    e.target.classList.add('selected-token');
+  }
+}
+
+function updatePlayerInfo() {
+  playerName.innerText = humanPlayer.name
+  userIcon.src = tokens[humanPlayer.token]
+  consoleIcons.forEach((icon) => icon.src = tokens[humanPlayer.token])
+}
+
+function logIn() {
+  if(!userName.value || !selectedToken) {
+    switchView(errorMsg, 'show');
+  } else {
+    humanPlayer = createPlayer(userName.value, selectedToken);
+    computerPlayer = createPlayer('computer', '💻');
+    updatePlayerInfo();
+    switchToHome();
   }
 }
 
