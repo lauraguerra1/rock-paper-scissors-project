@@ -55,7 +55,7 @@ function logIn() {
 function createPlayer(name, token) {
   return {
     name: name,
-    token: token || 'x',
+    token: token,
     wins: 0,
     selection: null
   };
