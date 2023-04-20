@@ -27,21 +27,13 @@ var fighters = {
   peace: document.querySelector('.peace'),
 };
 
-var humanWinKeys = {
-  rock: ['scissors', 'love'],
-  paper: ['rock', 'peace'],
-  scissors: ['paper', 'love'],
-  love: ['paper', 'peace'],
-  peace: ['rock', 'scissors'],
-};
-
-// var tokens = {
-//   '💁‍♀️': 'icons/waving-person.png',
-//   '🤠': 'icons/cowboy.png',
-//   '🦋': 'icons/butterfly.png',
-//   '🦄': 'icons/unicorn.png',
-//   '🌸': 'icons/flower.png'
-// }
+// var humanWinKeys = {
+//   rock: ['scissors', 'love'],
+//   paper: ['rock', 'peace'],
+//   scissors: ['paper', 'love'],
+//   love: ['paper', 'peace'],
+//   peace: ['rock', 'scissors'],
+// };
 
 var currentGame;
 var humanPlayer;
@@ -50,10 +42,6 @@ var selectedToken;
 
 
 // EVENT LISTENERS
-// window.addEventListener('load', function () {
-//   humanPlayer = createPlayer('human');
-//   computerPlayer = createPlayer('computer')
-// })
 tokenSection.addEventListener('click', selectToken);
 loginBtn.addEventListener('click', logIn);
 classicMode.addEventListener('click', startNewGame);
@@ -88,7 +76,6 @@ function selectToken(e) {
 }
 
 function updatePlayerInfo() {
-  // var playerName = document.querySelector('.player-name');
   var tokens = {
     '💁‍♀️': 'icons/waving-person.png',
     '🤠': 'icons/cowboy.png',
@@ -156,12 +143,19 @@ function chooseFighters(game, selection1, selection2) {
 
 function checkWins(game, selection1, selection2) {
   var updatedGame = chooseFighters(game, selection1, selection2);
-  var humanSelection = updatedGame.player1.selection.classList[1];
-  var computerSelection = updatedGame.player2.selection.classList[1];
+  var humanChoice = updatedGame.player1.selection.classList[1];
+  var computerChoice = updatedGame.player2.selection.classList[1];
+  var humanWinKeys = {
+    rock: ['scissors', 'love'],
+    paper: ['rock', 'peace'],
+    scissors: ['paper', 'love'],
+    love: ['paper', 'peace'],
+    peace: ['rock', 'scissors'],
+  };
  
-  if (humanSelection === computerSelection) {
+  if (humanChoice === computerChoice) {
     currentGame = adjustWins(updatedGame, 'draw');
-  } else if (humanWinKeys[humanSelection].includes(computerSelection)) {
+  } else if (humanWinKeys[humanChoice].includes(computerChoice)) {
     currentGame = adjustWins(updatedGame, 'player1');
   } else {
     currentGame = adjustWins(updatedGame, 'player2');
