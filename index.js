@@ -1,5 +1,5 @@
 // GLOBAL VARIABLES
-var gameModes = document.querySelectorAll('.game-mode')
+var gameModes = document.querySelectorAll('.game-mode');
 var choiceViews = Array.from(document.querySelectorAll('.fighter-choice-view'));
 var changeGameBtn = document.querySelector('.change-game-button');
 var homeView = document.querySelector('.home-view');
@@ -10,10 +10,9 @@ var computerSelection = document.querySelector('.computer-selection');
 var humanWins = document.querySelector('.human-wins');
 var computerWins = document.querySelector('.computer-wins');
 var consoleIcons = document.querySelectorAll('.console-person-icon');
-var loginView = document.querySelector('.login-view')
+var loginView = document.querySelector('.login-view');
 var loginBtn = document.querySelector('.login-button');
 var tokenSection = document.querySelector('.token-wrapper');
-// var tokenOptions = Array.from(document.querySelectorAll('.token-option'));
 
 var currentGame;
 var humanPlayer;
@@ -35,12 +34,12 @@ function getRandomIndex(array) {
 
 function switchView(domElement, display) {
   if (display === 'show') {
-    domElement.classList.remove('hidden')
+    domElement.classList.remove('hidden');
   } else if (display === 'hide') {
-    domElement.classList.add('hidden')
+    domElement.classList.add('hidden');
   } else {
-    var allViews = Array.from(document.querySelectorAll('.view'))
-    domElement.classList.remove('hidden')
+    var allViews = Array.from(document.querySelectorAll('.view'));
+    domElement.classList.remove('hidden');
     var hiddenViews = allViews.filter((view) => view !== domElement);
     hiddenViews.forEach((view) => view.classList.add('hidden'));
   }
@@ -63,17 +62,17 @@ function updatePlayerInfo() {
     '🦋': 'icons/butterfly.png',
     '🦄': 'icons/unicorn.png',
     '🌸': 'icons/flower.png'
-  }
+  };
 
-  document.querySelector('.player-name').innerText = humanPlayer.name
-  document.querySelector('.person-icon').src = tokens[humanPlayer.token]
-  consoleIcons.forEach((icon) => icon.src = tokens[humanPlayer.token])
+  document.querySelector('.player-name').innerText = humanPlayer.name;
+  document.querySelector('.person-icon').src = tokens[humanPlayer.token];
+  consoleIcons.forEach((icon) => (icon.src = tokens[humanPlayer.token]));
 }
 
 function logIn() {
   var userName = document.querySelector('#name');
   var errorMsg = document.querySelector('.error-message');
-  if(!userName.value || !selectedToken) {
+  if (!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
   } else {
     humanPlayer = createPlayer(userName.value, selectedToken);
@@ -89,7 +88,7 @@ function createPlayer(name, token) {
     token: token || 'x',
     wins: 0,
     selection: null
-  }
+  };
 }
 
 function createGame(mode, player1, player2) {
@@ -102,7 +101,7 @@ function createGame(mode, player1, player2) {
     board: boardType[mode],
     player1: player1,
     player2: player2,
-    winner: null,
+    winner: null
   };
 }
 
@@ -123,7 +122,7 @@ function chooseFighters(game, selection1, selection2) {
     paper: document.querySelector('.paper'),
     scissors: document.querySelector('.scissors'),
     love: document.querySelector('.love'),
-    peace: document.querySelector('.peace'),
+    peace: document.querySelector('.peace')
   };
 
   var updatedGame = game;
@@ -141,9 +140,9 @@ function checkWins(game, selection1, selection2) {
     paper: ['rock', 'peace'],
     scissors: ['paper', 'love'],
     love: ['paper', 'peace'],
-    peace: ['rock', 'scissors'],
+    peace: ['rock', 'scissors']
   };
- 
+
   if (humanChoice === computerChoice) {
     currentGame = adjustWins(updatedGame, 'draw');
   } else if (humanWinKeys[humanChoice].includes(computerChoice)) {
@@ -156,7 +155,7 @@ function checkWins(game, selection1, selection2) {
 function adjustWins(game, player) {
   var updatedGame = game;
   updatedGame.winner = player;
-  if(player !== 'draw') {
+  if (player !== 'draw') {
     updatedGame[player].wins += 1;
   }
   return updatedGame;
@@ -169,7 +168,7 @@ function takeTurn(e) {
   showPersonIcon(e);
   setTimeout(removePersonIcon, 500);
   setTimeout(displayResults, 500);
-  setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2)
+  setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2);
   setTimeout(showFighterChoices, 2000, currentGame.mode);
   setTimeout(switchView, 2000, changeGameBtn, 'show');
 }
@@ -188,8 +187,8 @@ function createWinMsg(game) {
   return {
     player1: `${humanToken}${humanChoice} beats ${computerChoice} -- ${game.player1.name} wins!${humanToken}`,
     player2: `${computerToken}${computerChoice} beats ${humanChoice} -- ${game.player2.name} wins!${computerToken}`,
-    draw:`💖it\'s a draw💖`
-  }
+    draw: `💖it\'s a draw💖`
+  };
 }
 
 function uploadResults(game) {
@@ -202,7 +201,9 @@ function uploadResults(game) {
 function displayGif() {
   var gifs = Array.from(document.querySelectorAll('.gif'));
   gifs.forEach((gif) => switchView(gif, 'hide'));
-  var selectedGif = gifs.find((gif) => gif.classList.contains(currentGame.winner));
+  var selectedGif = gifs.find((gif) =>
+    gif.classList.contains(currentGame.winner)
+  );
   switchView(selectedGif, 'show');
 }
 
@@ -218,9 +219,9 @@ function switchToHome() {
 }
 
 function showPersonIcon(e) {
-  e.target.closest('section').children[1].classList.remove('hidden')
+  e.target.closest('section').children[1].classList.remove('hidden');
 }
 
 function removePersonIcon() {
-  consoleIcons.forEach((icon) => switchView(icon, 'hide'))
+  consoleIcons.forEach((icon) => switchView(icon, 'hide'));
 }
