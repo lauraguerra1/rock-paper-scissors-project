@@ -88,12 +88,20 @@ img {
   max-width: 30px;
 }
 
-/* BUTTONS */
+/* BUTTONS & FORMS */
+button, .login-button {
+  background:rgb(244, 206, 213);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .change-game-button {
   margin-top: 50%;
   background: pink;
-  border-radius: 5px;
-  cursor: pointer;
+}
+
+button:hover {
+  background: rgb(254, 219, 248)
 }
 
 /* GAME BOARD */
