@@ -32,41 +32,11 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function switchView(domElement, display) {
-  if (display === 'show') {
-    domElement.classList.remove('hidden');
-  } else if (display === 'hide') {
-    domElement.classList.add('hidden');
-  } else {
-    var allViews = Array.from(document.querySelectorAll('.view'));
-    domElement.classList.remove('hidden');
-    var hiddenViews = allViews.filter((view) => view !== domElement);
-    hiddenViews.forEach((view) => view.classList.add('hidden'));
-  }
-}
-
 function selectToken(e) {
   if (e.target.classList.contains('token-option')) {
     selectedToken = e.target.classList[1];
-    document
-      .querySelectorAll('.token-option')
-      .forEach((token) => token.classList.remove('selected-token'));
-    e.target.classList.add('selected-token');
+    changeTokenDisplay(e);
   }
-}
-
-function updatePlayerInfo() {
-  var tokens = {
-    '💁‍♀️': 'icons/waving-person.png',
-    '🤠': 'icons/cowboy.png',
-    '🦋': 'icons/butterfly.png',
-    '🦄': 'icons/unicorn.png',
-    '🌸': 'icons/flower.png'
-  };
-
-  document.querySelector('.player-name').innerText = humanPlayer.name;
-  document.querySelector('.person-icon').src = tokens[humanPlayer.token];
-  consoleIcons.forEach((icon) => (icon.src = tokens[humanPlayer.token]));
 }
 
 function logIn() {
@@ -85,7 +55,7 @@ function logIn() {
 function createPlayer(name, token) {
   return {
     name: name,
-    token: token || 'x',
+    token: token,
     wins: 0,
     selection: null
   };
@@ -108,12 +78,6 @@ function createGame(mode, player1, player2) {
 function startNewGame(e) {
   currentGame = createGame(e.target.parentNode.id, humanPlayer, computerPlayer);
   showFighterChoices(currentGame.mode);
-}
-
-function showFighterChoices(mode) {
-  var chosenView = choiceViews.find((view) => view.classList.contains(mode));
-  switchView(chosenView);
-  mainMsg.innerText = 'Choose your fighter!';
 }
 
 function chooseFighters(game, selection1, selection2) {
@@ -173,12 +137,6 @@ function takeTurn(e) {
   setTimeout(switchView, 2000, changeGameBtn, 'show');
 }
 
-function displayResults() {
-  uploadResults(currentGame);
-  displayGif();
-  switchView(winnerView);
-}
-
 function createWinMsg(game) {
   var humanToken = game.player1.token;
   var computerToken = game.player2.token;
@@ -189,39 +147,4 @@ function createWinMsg(game) {
     player2: `${computerToken}${computerChoice} beats ${humanChoice} -- ${game.player2.name} wins!${computerToken}`,
     draw: `💖it\'s a draw💖`
   };
-}
-
-function uploadResults(game) {
-  winMsg = createWinMsg(game);
-  humanSelection.innerHTML = game.player1.selection.innerHTML;
-  computerSelection.innerHTML = game.player2.selection.innerHTML;
-  mainMsg.innerText = winMsg[game.winner];
-}
-
-function displayGif() {
-  var gifs = Array.from(document.querySelectorAll('.gif'));
-  gifs.forEach((gif) => switchView(gif, 'hide'));
-  var selectedGif = gifs.find((gif) =>
-    gif.classList.contains(currentGame.winner)
-  );
-  switchView(selectedGif, 'show');
-}
-
-function updateWinsDisplay(firstPlayer, secondPlayer) {
-  humanWins.innerText = `Wins: ${firstPlayer.wins}`;
-  computerWins.innerText = `Wins: ${secondPlayer.wins}`;
-}
-
-function switchToHome() {
-  switchView(homeView);
-  switchView(changeGameBtn, 'hide');
-  mainMsg.innerText = 'Choose your game!';
-}
-
-function showPersonIcon(e) {
-  e.target.closest('section').children[1].classList.remove('hidden');
-}
-
-function removePersonIcon() {
-  consoleIcons.forEach((icon) => switchView(icon, 'hide'));
 }
