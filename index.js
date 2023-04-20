@@ -13,7 +13,7 @@ var consoleIcons = document.querySelectorAll('.console-person-icon');
 var loginView = document.querySelector('.login-view')
 var loginBtn = document.querySelector('.login-button');
 var tokenSection = document.querySelector('.token-wrapper');
-var tokenOptions = Array.from(document.querySelectorAll('.token-option'));
+// var tokenOptions = Array.from(document.querySelectorAll('.token-option'));
 
 var currentGame;
 var humanPlayer;
@@ -49,7 +49,9 @@ function switchView(domElement, display) {
 function selectToken(e) {
   if (e.target.classList.contains('token-option')) {
     selectedToken = e.target.classList[1];
-    tokenOptions.forEach((token) => token.classList.remove('selected-token'))
+    document
+      .querySelectorAll('.token-option')
+      .forEach((token) => token.classList.remove('selected-token'));
     e.target.classList.add('selected-token');
   }
 }
