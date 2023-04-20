@@ -40,11 +40,12 @@ img {
   justify-content: center;
   align-items: center;
 }
+
 .login-view, form {
-  margin: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5%;
 }
 
 .token-wrapper {
@@ -53,6 +54,7 @@ img {
   padding: 10%;
   width: 60vw;
 }
+
 .token-option {
   max-height: 10%;
   max-width: 10%;
