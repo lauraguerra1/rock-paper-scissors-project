@@ -170,3 +170,10 @@ button:hover {
     width: 250px;
   }
 }
+
+@media screen and (max-width: 1075px) {
+  .fighter {
+    height: 200px;
+    width: 200px;
+  }
+}
