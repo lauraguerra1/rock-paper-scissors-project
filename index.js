@@ -9,12 +9,9 @@ var humanSelection = document.querySelector('.human-selection');
 var computerSelection = document.querySelector('.computer-selection');
 var humanWins = document.querySelector('.human-wins');
 var computerWins = document.querySelector('.computer-wins');
-// var userIcon = document.querySelector('.person-icon');
 var consoleIcons = document.querySelectorAll('.console-person-icon');
 var loginView = document.querySelector('.login-view')
-var userName = document.querySelector('#name');
 var loginBtn = document.querySelector('.login-button');
-var errorMsg = document.querySelector('.error-message');
 var tokenSection = document.querySelector('.token-wrapper');
 var tokenOptions = Array.from(document.querySelectorAll('.token-option'));
 
@@ -72,6 +69,8 @@ function updatePlayerInfo() {
 }
 
 function logIn() {
+  var userName = document.querySelector('#name');
+  var errorMsg = document.querySelector('.error-message');
   if(!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
   } else {
