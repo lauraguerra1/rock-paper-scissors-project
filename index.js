@@ -9,8 +9,8 @@ var humanSelection = document.querySelector('.human-selection');
 var computerSelection = document.querySelector('.computer-selection');
 var humanWins = document.querySelector('.human-wins');
 var computerWins = document.querySelector('.computer-wins');
-var userIcon = document.querySelector('.person-icon');
-var consoleIcons = Array.from(document.querySelectorAll('.console-person-icon'));
+// var userIcon = document.querySelector('.person-icon');
+var consoleIcons = document.querySelectorAll('.console-person-icon');
 var loginView = document.querySelector('.login-view')
 var userName = document.querySelector('#name');
 var loginBtn = document.querySelector('.login-button');
@@ -67,7 +67,7 @@ function updatePlayerInfo() {
   }
 
   document.querySelector('.player-name').innerText = humanPlayer.name
-  userIcon.src = tokens[humanPlayer.token]
+  document.querySelector('.person-icon').src = tokens[humanPlayer.token]
   consoleIcons.forEach((icon) => icon.src = tokens[humanPlayer.token])
 }
 
