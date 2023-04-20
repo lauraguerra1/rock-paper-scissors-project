@@ -72,7 +72,7 @@ function updateWinsDisplay(firstPlayer, secondPlayer) {
 }
 
 function showPersonIcon(e) {
-  e.target.closest('section').children[1].classList.remove('hidden');
+  switchView(e.target.closest('section').children[1], 'show');
 }
 
 function removePersonIcon() {
