@@ -102,18 +102,13 @@ function checkWins(game, selection1, selection2) {
   var updatedGame = chooseFighters(game, selection1, selection2);
   var humanSelection = updatedGame.player1.selection.classList[1];
   var computerSelection = updatedGame.player2.selection.classList[1];
-  var humanToken = updatedGame.player1.token;
-  var computerToken = updatedGame.player2.token;
  
   if (humanSelection === computerSelection) {
     currentGame = adjustWins(updatedGame, 'draw');
-    return `it\'s a draw`
   } else if (humanWinKeys[humanSelection].includes(computerSelection)) {
     currentGame = adjustWins(updatedGame, 'player1');
-    return `${humanToken}${humanSelection} beats ${computerSelection} -- ${game.player1.name} wins!${humanToken}`
   } else {
     currentGame = adjustWins(updatedGame, 'player2');
-    return `${computerToken}${computerSelection} beats ${humanSelection} -- ${game.player2.name} wins!${computerToken}`
   }
 }
 
@@ -130,18 +125,35 @@ function takeTurn(e) {
   var winMsg = checkWins(currentGame, selection1, selection2);
   showPersonIcon(e);
   setTimeout(removePersonIcon, 500);
-  setTimeout(displayResults, 500, winMsg);
+  setTimeout(displayResults, 500);
   setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2)
   setTimeout(showFighterChoices, 2000, currentGame.mode);
   setTimeout(changeView, 2000, changeGameBtn, 'show');
 }
 
-function displayResults(msg) {
-  choiceViews.forEach((view) => changeView(view, 'hide'));
-  humanSelection.innerHTML = currentGame.player1.selection.innerHTML;
-  computerSelection.innerHTML = currentGame.player2.selection.innerHTML;
-  mainMsg.innerText = msg;
+function displayResults() {
+  choiceViews.forEach((view) => changeView(view, 'hide'))
+  uploadResults(currentGame);
   changeView(winnerView, 'show');
+}
+
+function createWinMsg(game) {
+  var humanToken = game.player1.token;
+  var computerToken = game.player2.token;
+  var humanChoice = game.player1.selection.classList[1];
+  var computerChoice = game.player2.selection.classList[1];
+  return {
+    player1: `${humanToken}${humanChoice} beats ${computerChoice} -- ${game.player1.name} wins!${humanToken}`,
+    player2: `${computerToken}${computerChoice} beats ${humanChoice} -- ${game.player2.name} wins!${computerToken}`,
+    draw:`💖it\'s a draw💖`
+  }
+}
+
+function uploadResults(game) {
+  winMsg = createWinMsg(game);
+  humanSelection.innerHTML = game.player1.selection.innerHTML;
+  computerSelection.innerHTML = game.player2.selection.innerHTML;
+  mainMsg.innerText = winMsg[game.winner];
 }
 
 function updateWinsDisplay(firstPlayer, secondPlayer) {
