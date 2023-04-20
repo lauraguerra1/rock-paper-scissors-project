@@ -77,6 +77,10 @@ img {
   background: rgb(254, 219, 248)
 }
 
+#classic {
+  margin-top: 30%;
+}
+
 .player-section {
   background: rgb(244, 206, 213);
   height: 100vh;
@@ -90,10 +94,25 @@ img {
 }
 
 /* BUTTONS & FORMS */
-button, .login-button {
+button {
   background:rgb(244, 206, 213);
-  border-radius: 5px;
+  border-radius: 15px;
+  border: solid #e7bce7;
   cursor: pointer;
+}
+
+.login-button {
+  background:rgb(244, 206, 213);
+  height: 30px;
+  width: 20%;
+}
+
+input {
+  border-radius: 15px;
+  border: none;
+  height: 30px;
+  width: 110%;
+  text-align: center;
 }
 
 .change-game-button {
@@ -145,4 +164,88 @@ button:hover {
 /* OVERRIDES */
 .hidden {
   display: none;
+}
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 1285px) {
+  .fighter {
+    height: 250px;
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 1075px) {
+  .fighter {
+    height: 200px;
+    width: 200px;
+  }
+
+  .login-button {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .fighter {
+    height: 150px;
+    width: 150px;
+  }
+
+  .player-section {
+    height: 110%
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .fighter {
+    height: 100px;
+    width: 100px;
+  }
+
+  .game-console {
+    width: 60%;
+  }
+
+  .player-section {
+    height: 120%
+  }
+
+  .login-view {
+    margin-top: 20%;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  h1 {
+    margin-bottom: 0;
+  }
+  
+  .login-view {
+    margin: 10%;
+  }
+
+  .fighter {
+    height: 150px;
+    width: 150px;
+  }
+  
+  .game-console {
+    width: 60%;
+  }
+  
+  .game-mode {
+    padding: 0;
+  }
+  
+  #classic {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-height: 380px) {
+  .fighter {
+    height: 120px;
+    width: 120px;
+  }
 }
