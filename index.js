@@ -165,7 +165,9 @@ function checkWins(game, selection1, selection2) {
 function adjustWins(game, player) {
   var updatedGame = game;
   updatedGame.winner = player;
-  updatedGame[player].wins += 1;
+  if(player !== 'draw') {
+    updatedGame[player].wins += 1;
+  }
   return updatedGame;
 }
 
