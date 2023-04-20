@@ -60,6 +60,7 @@ function createPlayer(name, token) {
     name: name,
     token: token || 'x',
     wins: 0,
+    selection: null
   }
 }
 
@@ -73,6 +74,7 @@ function createGame(mode, player1, player2) {
     board: boardType[mode],
     player1: player1,
     player2: player2,
+    winner: null,
   };
 }
 
@@ -82,32 +84,37 @@ function startNewGame(e) {
 }
 
 function showFighterChoices(mode) {
-  var chosenView = choiceViews.filter((view) => view.classList.contains(mode));
-  changeView(chosenView[0], 'show');
+  var chosenView = choiceViews.find((view) => view.classList.contains(mode));
+  changeView(chosenView, 'show');
   changeView(homeView, 'hide');
   changeView(winnerView, 'hide');
   mainMsg.innerText = 'Choose your fighter!';
 }
 
+function chooseFighters(game, selection1, selection2) {
+  var updatedGame = game;
+  updatedGame.player1.selection = fighters[selection1];
+  updatedGame.player2.selection = fighters[selection2];
+  return updatedGame;
+}
+
 function checkWins(game, selection1, selection2) {
-  var humanSelection = selection1;
-  var computerSelection = selection2;
-  var humanToken = game.player1.token;
-  var computerToken = game.player2.token;
+  var updatedGame = chooseFighters(game, selection1, selection2);
+  var humanSelection = updatedGame.player1.selection.classList[1];
+  var computerSelection = updatedGame.player2.selection.classList[1];
  
   if (humanSelection === computerSelection) {
-    return `it\'s a draw`
+    currentGame = adjustWins(updatedGame, 'draw');
   } else if (humanWinKeys[humanSelection].includes(computerSelection)) {
-    currentGame = adjustWins(game, 'player1');
-    return `${humanToken}${humanSelection} beats ${computerSelection} -- ${game.player1.name} wins!${humanToken}`
+    currentGame = adjustWins(updatedGame, 'player1');
   } else {
-    currentGame = adjustWins(game, 'player2');
-    return `${computerToken}${computerSelection} beats ${humanSelection} -- ${game.player2.name} wins!${computerToken}`
+    currentGame = adjustWins(updatedGame, 'player2');
   }
 }
 
 function adjustWins(game, player) {
   var updatedGame = game;
+  updatedGame.winner = player;
   updatedGame[player].wins += 1;
   return updatedGame;
 }
@@ -115,21 +122,46 @@ function adjustWins(game, player) {
 function takeTurn(e) {
   var selection1 = e.target.closest('section').classList[1];
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
-  var winMsg = checkWins(currentGame, selection1, selection2);
+  checkWins(currentGame, selection1, selection2);
   showPersonIcon(e);
   setTimeout(removePersonIcon, 500);
-  setTimeout(displayResults, 500, winMsg, selection1, selection2);
+  setTimeout(displayResults, 500);
   setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2)
   setTimeout(showFighterChoices, 2000, currentGame.mode);
   setTimeout(changeView, 2000, changeGameBtn, 'show');
 }
 
-function displayResults(msg, selection1, selection2) {
-  choiceViews.forEach((view) => changeView(view, 'hide'));
-  humanSelection.innerHTML = fighters[selection1].innerHTML;
-  computerSelection.innerHTML = fighters[selection2].innerHTML;
-  mainMsg.innerText = msg;
+function displayResults() {
+  choiceViews.forEach((view) => changeView(view, 'hide'))
+  uploadResults(currentGame);
+  displayGif();
   changeView(winnerView, 'show');
+}
+
+function createWinMsg(game) {
+  var humanToken = game.player1.token;
+  var computerToken = game.player2.token;
+  var humanChoice = game.player1.selection.classList[1];
+  var computerChoice = game.player2.selection.classList[1];
+  return {
+    player1: `${humanToken}${humanChoice} beats ${computerChoice} -- ${game.player1.name} wins!${humanToken}`,
+    player2: `${computerToken}${computerChoice} beats ${humanChoice} -- ${game.player2.name} wins!${computerToken}`,
+    draw:`💖it\'s a draw💖`
+  }
+}
+
+function uploadResults(game) {
+  winMsg = createWinMsg(game);
+  humanSelection.innerHTML = game.player1.selection.innerHTML;
+  computerSelection.innerHTML = game.player2.selection.innerHTML;
+  mainMsg.innerText = winMsg[game.winner];
+}
+
+function displayGif() {
+  var gifs = Array.from(document.querySelectorAll('.gif'));
+  gifs.forEach((gif) => changeView(gif, 'hide'));
+  var selectedGif = gifs.find((gif) => gif.classList.contains(currentGame.winner));
+  changeView(selectedGif, 'show');
 }
 
 function updateWinsDisplay(firstPlayer, secondPlayer) {
