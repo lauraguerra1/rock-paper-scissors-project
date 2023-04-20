@@ -122,7 +122,7 @@ function adjustWins(game, player) {
 function takeTurn(e) {
   var selection1 = e.target.closest('section').classList[1];
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
-  var winMsg = checkWins(currentGame, selection1, selection2);
+  checkWins(currentGame, selection1, selection2);
   showPersonIcon(e);
   setTimeout(removePersonIcon, 500);
   setTimeout(displayResults, 500);
@@ -134,6 +134,7 @@ function takeTurn(e) {
 function displayResults() {
   choiceViews.forEach((view) => changeView(view, 'hide'))
   uploadResults(currentGame);
+  displayGif();
   changeView(winnerView, 'show');
 }
 
@@ -154,6 +155,13 @@ function uploadResults(game) {
   humanSelection.innerHTML = game.player1.selection.innerHTML;
   computerSelection.innerHTML = game.player2.selection.innerHTML;
   mainMsg.innerText = winMsg[game.winner];
+}
+
+function displayGif() {
+  var gifs = Array.from(document.querySelectorAll('.gif'));
+  gifs.forEach((gif) => changeView(gif, 'hide'));
+  var selectedGif = gifs.filter((gif) => gif.classList.contains(currentGame.winner));
+  changeView(selectedGif[0], 'show');
 }
 
 function updateWinsDisplay(firstPlayer, secondPlayer) {
