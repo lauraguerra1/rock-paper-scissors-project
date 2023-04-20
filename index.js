@@ -47,11 +47,16 @@ function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function changeView(domElement, display) {
+function switchView(domElement, display) {
   if (display === 'show') {
     domElement.classList.remove('hidden')
   } else if (display === 'hide') {
     domElement.classList.add('hidden')
+  } else {
+    var allViews = Array.from(document.querySelectorAll('.view'))
+    domElement.classList.remove('hidden')
+    var hiddenViews = allViews.filter((view) => view !== domElement);
+    hiddenViews.forEach((view) => view.classList.add('hidden'));
   }
 }
 
@@ -85,9 +90,7 @@ function startNewGame(e) {
 
 function showFighterChoices(mode) {
   var chosenView = choiceViews.find((view) => view.classList.contains(mode));
-  changeView(chosenView, 'show');
-  changeView(homeView, 'hide');
-  changeView(winnerView, 'hide');
+  switchView(chosenView);
   mainMsg.innerText = 'Choose your fighter!';
 }
 
@@ -128,14 +131,13 @@ function takeTurn(e) {
   setTimeout(displayResults, 500);
   setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2)
   setTimeout(showFighterChoices, 2000, currentGame.mode);
-  setTimeout(changeView, 2000, changeGameBtn, 'show');
+  setTimeout(switchView, 2000, changeGameBtn, 'show');
 }
 
 function displayResults() {
-  choiceViews.forEach((view) => changeView(view, 'hide'))
   uploadResults(currentGame);
   displayGif();
-  changeView(winnerView, 'show');
+  switchView(winnerView);
 }
 
 function createWinMsg(game) {
@@ -159,9 +161,9 @@ function uploadResults(game) {
 
 function displayGif() {
   var gifs = Array.from(document.querySelectorAll('.gif'));
-  gifs.forEach((gif) => changeView(gif, 'hide'));
+  gifs.forEach((gif) => switchView(gif, 'hide'));
   var selectedGif = gifs.find((gif) => gif.classList.contains(currentGame.winner));
-  changeView(selectedGif, 'show');
+  switchView(selectedGif, 'show');
 }
 
 function updateWinsDisplay(firstPlayer, secondPlayer) {
@@ -170,9 +172,8 @@ function updateWinsDisplay(firstPlayer, secondPlayer) {
 }
 
 function switchToHome() {
-  choiceViews.forEach((view) => changeView(view, 'hide'))
-  changeView(homeView, 'show');
-  changeView(changeGameBtn, 'hide');
+  switchView(homeView);
+  switchView(changeGameBtn, 'hide');
   mainMsg.innerText = 'Choose your game!';
 }
 
@@ -181,5 +182,5 @@ function showPersonIcon(e) {
 }
 
 function removePersonIcon() {
-  consoleIcons.forEach((icon) => changeView(icon, 'hide'))
+  consoleIcons.forEach((icon) => switchView(icon, 'hide'))
 }
