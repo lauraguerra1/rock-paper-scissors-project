@@ -40,7 +40,29 @@ img {
   justify-content: center;
   align-items: center;
 }
+.login-view, form {
+  margin: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.token-wrapper {
+  display: flex;
+  justify-content: space-around;
+  padding: 10%;
+  width: 60vw;
+}
+.token-option {
+  max-height: 10%;
+  max-width: 10%;
+  cursor: pointer;
+}
+
+.token-option:hover, .selected-token {
+  border-radius: 10px;
+  background:rgb(172, 172, 235);
+}
 .game-mode {
   border-radius: 5%;
   background: rgb(244, 206, 213);
@@ -67,12 +89,20 @@ img {
   max-width: 30px;
 }
 
-/* BUTTONS */
+/* BUTTONS & FORMS */
+button, .login-button {
+  background:rgb(244, 206, 213);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .change-game-button {
   margin-top: 50%;
   background: pink;
-  border-radius: 5px;
-  cursor: pointer;
+}
+
+button:hover {
+  background: rgb(254, 219, 248)
 }
 
 /* GAME BOARD */
