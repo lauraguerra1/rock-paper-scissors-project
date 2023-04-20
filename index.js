@@ -14,26 +14,10 @@ var userIcon = document.querySelector('.person-icon');
 var consoleIcons = Array.from(document.querySelectorAll('.console-person-icon'));
 var loginView = document.querySelector('.login-view')
 var userName = document.querySelector('#name');
-// var playerName = document.querySelector('.player-name');
 var loginBtn = document.querySelector('.login-button');
 var errorMsg = document.querySelector('.error-message');
 var tokenSection = document.querySelector('.token-wrapper');
 var tokenOptions = Array.from(document.querySelectorAll('.token-option'));
-var fighters = {
-  rock: document.querySelector('.rock'),
-  paper: document.querySelector('.paper'),
-  scissors: document.querySelector('.scissors'),
-  love: document.querySelector('.love'),
-  peace: document.querySelector('.peace'),
-};
-
-// var humanWinKeys = {
-//   rock: ['scissors', 'love'],
-//   paper: ['rock', 'peace'],
-//   scissors: ['paper', 'love'],
-//   love: ['paper', 'peace'],
-//   peace: ['rock', 'scissors'],
-// };
 
 var currentGame;
 var humanPlayer;
@@ -135,6 +119,14 @@ function showFighterChoices(mode) {
 }
 
 function chooseFighters(game, selection1, selection2) {
+  var fighters = {
+    rock: document.querySelector('.rock'),
+    paper: document.querySelector('.paper'),
+    scissors: document.querySelector('.scissors'),
+    love: document.querySelector('.love'),
+    peace: document.querySelector('.peace'),
+  };
+
   var updatedGame = game;
   updatedGame.player1.selection = fighters[selection1];
   updatedGame.player2.selection = fighters[selection2];
