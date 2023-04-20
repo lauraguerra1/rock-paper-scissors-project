@@ -14,7 +14,7 @@ var userIcon = document.querySelector('.person-icon');
 var consoleIcons = Array.from(document.querySelectorAll('.console-person-icon'));
 var loginView = document.querySelector('.login-view')
 var userName = document.querySelector('#name');
-var playerName = document.querySelector('.player-name');
+// var playerName = document.querySelector('.player-name');
 var loginBtn = document.querySelector('.login-button');
 var errorMsg = document.querySelector('.error-message');
 var tokenSection = document.querySelector('.token-wrapper');
@@ -35,13 +35,13 @@ var humanWinKeys = {
   peace: ['rock', 'scissors'],
 };
 
-var tokens = {
-  '💁‍♀️': 'icons/waving-person.png',
-  '🤠': 'icons/cowboy.png',
-  '🦋': 'icons/butterfly.png',
-  '🦄': 'icons/unicorn.png',
-  '🌸': 'icons/flower.png'
-}
+// var tokens = {
+//   '💁‍♀️': 'icons/waving-person.png',
+//   '🤠': 'icons/cowboy.png',
+//   '🦋': 'icons/butterfly.png',
+//   '🦄': 'icons/unicorn.png',
+//   '🌸': 'icons/flower.png'
+// }
 
 var currentGame;
 var humanPlayer;
@@ -88,7 +88,16 @@ function selectToken(e) {
 }
 
 function updatePlayerInfo() {
-  playerName.innerText = humanPlayer.name
+  // var playerName = document.querySelector('.player-name');
+  var tokens = {
+    '💁‍♀️': 'icons/waving-person.png',
+    '🤠': 'icons/cowboy.png',
+    '🦋': 'icons/butterfly.png',
+    '🦄': 'icons/unicorn.png',
+    '🌸': 'icons/flower.png'
+  }
+
+  document.querySelector('.player-name').innerText = humanPlayer.name
   userIcon.src = tokens[humanPlayer.token]
   consoleIcons.forEach((icon) => icon.src = tokens[humanPlayer.token])
 }
