@@ -136,6 +136,12 @@ button:hover {
   align-items: center;
 }
 
+.fighter-choice-view .fighter-icon:hover {
+  max-height: 60%;
+  max-width: 60%;
+  cursor: pointer;
+}
+
 .fighter-choice-view {
   min-height: 80vh;
   max-height: 100%;
