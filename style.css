@@ -90,10 +90,25 @@ img {
 }
 
 /* BUTTONS & FORMS */
-button, .login-button {
+button {
   background:rgb(244, 206, 213);
-  border-radius: 5px;
+  border-radius: 15px;
+  border: solid #e7bce7;
   cursor: pointer;
+}
+
+.login-button {
+  background:rgb(244, 206, 213);
+  height: 30px;
+  width: 20%;
+}
+
+input {
+  border-radius: 15px;
+  border: none;
+  height: 30px;
+  width: 110%;
+  text-align: center;
 }
 
 .change-game-button {
