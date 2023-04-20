@@ -1,6 +1,5 @@
 // GLOBAL VARIABLES
-var classicMode = document.querySelector('#classic');
-var hippieMode = document.querySelector('#hippie');
+var gameModes = document.querySelectorAll('.game-mode')
 var choiceViews = Array.from(document.querySelectorAll('.fighter-choice-view'));
 var changeGameBtn = document.querySelector('.change-game-button');
 var homeView = document.querySelector('.home-view');
@@ -28,8 +27,7 @@ var selectedToken;
 // EVENT LISTENERS
 tokenSection.addEventListener('click', selectToken);
 loginBtn.addEventListener('click', logIn);
-classicMode.addEventListener('click', startNewGame);
-hippieMode.addEventListener('click', startNewGame);
+gameModes.forEach((mode) => mode.addEventListener('click', startNewGame));
 choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
 changeGameBtn.addEventListener('click', switchToHome);
 
