@@ -77,6 +77,10 @@ img {
   background: rgb(254, 219, 248)
 }
 
+#classic {
+  margin-top: 30%;
+}
+
 .player-section {
   background: rgb(244, 206, 213);
   height: 100vh;
@@ -176,6 +180,10 @@ button:hover {
     height: 200px;
     width: 200px;
   }
+  
+  .login-button {
+    width: 40%;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -186,5 +194,24 @@ button:hover {
 
   .player-section {
     height: 110%
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .fighter {
+    height: 100px;
+    width: 100px;
+  }
+
+  .game-console {
+    width: 60%;
+  }
+
+  .player-section {
+    height: 120%
+  }
+
+  .login-view {
+    margin-top: 20%;
   }
 }
