@@ -84,8 +84,8 @@ function startNewGame(e) {
 }
 
 function showFighterChoices(mode) {
-  var chosenView = choiceViews.filter((view) => view.classList.contains(mode));
-  changeView(chosenView[0], 'show');
+  var chosenView = choiceViews.find((view) => view.classList.contains(mode));
+  changeView(chosenView, 'show');
   changeView(homeView, 'hide');
   changeView(winnerView, 'hide');
   mainMsg.innerText = 'Choose your fighter!';
@@ -160,8 +160,8 @@ function uploadResults(game) {
 function displayGif() {
   var gifs = Array.from(document.querySelectorAll('.gif'));
   gifs.forEach((gif) => changeView(gif, 'hide'));
-  var selectedGif = gifs.filter((gif) => gif.classList.contains(currentGame.winner));
-  changeView(selectedGif[0], 'show');
+  var selectedGif = gifs.find((gif) => gif.classList.contains(currentGame.winner));
+  changeView(selectedGif, 'show');
 }
 
 function updateWinsDisplay(firstPlayer, secondPlayer) {
