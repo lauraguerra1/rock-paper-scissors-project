@@ -161,3 +161,12 @@ button:hover {
 .hidden {
   display: none;
 }
+
+/* MEDIA QUERIES */
+
+@media screen and (max-width: 1285px) {
+  .fighter {
+    height: 250px;
+    width: 250px;
+  }
+}
