@@ -198,11 +198,6 @@ button:hover {
 }
 
 @media screen and (max-width: 480px) {
-  .fighter {
-    height: 100px;
-    width: 100px;
-  }
-
   .game-console {
     width: 60%;
   }
@@ -213,6 +208,13 @@ button:hover {
 
   .login-view {
     margin-top: 20%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .fighter {
+    height: 100px;
+    width: 100px;
   }
 }
 
