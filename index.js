@@ -74,6 +74,7 @@ function createGame(mode, player1, player2) {
     board: boardType[mode],
     player1: player1,
     player2: player2,
+    winner: null,
   };
 }
 
@@ -105,7 +106,7 @@ function checkWins(game, selection1, selection2) {
   var computerToken = updatedGame.player2.token;
  
   if (humanSelection === computerSelection) {
-    currentGame = updatedGame;
+    currentGame = adjustWins(updatedGame, 'draw');
     return `it\'s a draw`
   } else if (humanWinKeys[humanSelection].includes(computerSelection)) {
     currentGame = adjustWins(updatedGame, 'player1');
@@ -118,6 +119,7 @@ function checkWins(game, selection1, selection2) {
 
 function adjustWins(game, player) {
   var updatedGame = game;
+  updatedGame.winner = player;
   updatedGame[player].wins += 1;
   return updatedGame;
 }
