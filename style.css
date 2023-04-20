@@ -177,3 +177,14 @@ button:hover {
     width: 200px;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .fighter {
+    height: 150px;
+    width: 150px;
+  }
+
+  .player-section {
+    height: 110%
+  }
+}
