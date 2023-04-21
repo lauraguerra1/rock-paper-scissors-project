@@ -18,7 +18,7 @@ function changeTokenDisplay(e) {
   e.target.classList.add('selected-token');
 }
 
-function updatePlayerInfo() {
+function updatePlayerInfo(human) {
   var tokens = {
     '💁‍♀️': 'icons/waving-person.png',
     '🤠': 'icons/cowboy.png',
@@ -27,9 +27,9 @@ function updatePlayerInfo() {
     '🌸': 'icons/flower.png'
   };
 
-  document.querySelector('.player-name').innerText = humanPlayer.name;
-  document.querySelector('.person-icon').src = tokens[humanPlayer.token];
-  consoleIcons.forEach((icon) => (icon.src = tokens[humanPlayer.token]));
+  document.querySelector('.player-name').innerText = human.name;
+  document.querySelector('.person-icon').src = tokens[human.token];
+  consoleIcons.forEach((icon) => (icon.src = tokens[human.token]));
 }
 
 function switchToHome() {

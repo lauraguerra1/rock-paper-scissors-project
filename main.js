@@ -41,24 +41,23 @@ function selectToken(e) {
 
 function logIn() {
   var userName = document.querySelector('#name');
-  var existingUser = localStorage.getItem(userName.value.toLowerCase());
+  var existingGame = localStorage.getItem(userName.value.toLowerCase());
   var errorMsg = document.querySelector('.error-message');
   if (!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
     return null; 
-  } if (existingUser) {
-    var player = JSON.parse(existingUser);
-    player.token = selectedToken;
-    humanPlayer = player;
-    computerPlayer = createPlayer('computer', '💻');
-    updatePlayerInfo();
-    updateWinsDisplay(humanPlayer, computerPlayer);
+  } if (existingGame) {
+    currentGame = JSON.parse(existingGame);
+    currentGame.player1.token = selectedToken;
+    updatePlayerInfo(currentGame.player1);
+    updateWinsDisplay(currentGame.player1, currentGame.player2);
     switchToHome();
   } else  {
     humanPlayer = createPlayer(userName.value, selectedToken);
-    localStorage.setItem(humanPlayer.name.toLowerCase(), JSON.stringify(humanPlayer));
     computerPlayer = createPlayer('computer', '💻');
-    updatePlayerInfo();
+    currentGame = createGame(humanPlayer, computerPlayer);
+    localStorage.setItem(humanPlayer.name.toLowerCase(), JSON.stringify(currentGame));
+    updatePlayerInfo(currentGame.player1);
     switchToHome();
   }
 }
@@ -72,14 +71,10 @@ function createPlayer(name, token) {
   };
 }
 
-function createGame(mode, player1, player2) {
-  var boardType = {
-    classic: ['rock', 'paper', 'scissors'],
-    hippie: ['rock', 'paper', 'scissors', 'love', 'peace'],
-  };
+function createGame(player1, player2) {
   return {
-    mode: mode,
-    board: boardType[mode],
+    mode: null,
+    board: null,
     player1: player1,
     player2: player2,
     winner: null
@@ -87,8 +82,20 @@ function createGame(mode, player1, player2) {
 }
 
 function startNewGame(e) {
-  currentGame = createGame(e.target.parentNode.id, humanPlayer, computerPlayer);
+  currentGame = chooseGameMode(currentGame, e)
   showFighterChoices(currentGame.mode);
+}
+
+function chooseGameMode(game, e) {
+  var boardType = {
+    classic: ['rock', 'paper', 'scissors'],
+    hippie: ['rock', 'paper', 'scissors', 'love', 'peace'],
+  };
+
+  var updatedGame = game;
+  updatedGame.mode = e.target.parentNode.id;
+  updatedGame.board = boardType[updatedGame.mode];
+  return updatedGame; 
 }
 
 function chooseFighters(game, selection1, selection2) {
@@ -125,7 +132,7 @@ function checkWins(game, selection1, selection2) {
   } else {
     currentGame = adjustWins(updatedGame, 'player2');
   }
-  localStorage.setItem(humanPlayer.name, JSON.stringify(currentGame.player1));
+  localStorage.setItem(humanPlayer.name.toLowerCase(), JSON.stringify(currentGame));
 }
 
 function adjustWins(game, player) {
