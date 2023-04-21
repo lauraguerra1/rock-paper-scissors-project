@@ -15,8 +15,6 @@ var loginBtn = document.querySelector('.login-button');
 var tokenSection = document.querySelector('.token-wrapper');
 
 var currentGame;
-var humanPlayer;
-var computerPlayer;
 var selectedToken;
 
 
@@ -53,10 +51,8 @@ function logIn() {
     updateWinsDisplay(currentGame.player1, currentGame.player2);
     switchToHome();
   } else  {
-    humanPlayer = createPlayer(userName.value, selectedToken);
-    computerPlayer = createPlayer('computer', '💻');
-    currentGame = createGame(humanPlayer, computerPlayer);
-    localStorage.setItem(humanPlayer.name.toLowerCase(), JSON.stringify(currentGame));
+    currentGame = createGame(createPlayer(userName.value, selectedToken), createPlayer('computer', '💻'));
+    localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
     updatePlayerInfo(currentGame.player1);
     switchToHome();
   }
@@ -132,7 +128,7 @@ function checkWins(game, selection1, selection2) {
   } else {
     currentGame = adjustWins(updatedGame, 'player2');
   }
-  localStorage.setItem(humanPlayer.name.toLowerCase(), JSON.stringify(currentGame));
+  localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
 }
 
 function adjustWins(game, player) {
