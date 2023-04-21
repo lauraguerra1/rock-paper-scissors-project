@@ -41,11 +41,22 @@ function selectToken(e) {
 
 function logIn() {
   var userName = document.querySelector('#name');
+  var existingUser = localStorage.getItem(userName.value.toLowerCase());
   var errorMsg = document.querySelector('.error-message');
   if (!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
-  } else {
+    return null; 
+  } if (existingUser) {
+    var player = JSON.parse(existingUser);
+    player.token = selectedToken;
+    humanPlayer = player;
+    computerPlayer = createPlayer('computer', '💻');
+    updatePlayerInfo();
+    updateWinsDisplay(humanPlayer, computerPlayer);
+    switchToHome();
+  } else  {
     humanPlayer = createPlayer(userName.value, selectedToken);
+    localStorage.setItem(humanPlayer.name.toLowerCase(), JSON.stringify(humanPlayer));
     computerPlayer = createPlayer('computer', '💻');
     updatePlayerInfo();
     switchToHome();
@@ -114,6 +125,7 @@ function checkWins(game, selection1, selection2) {
   } else {
     currentGame = adjustWins(updatedGame, 'player2');
   }
+  localStorage.setItem(humanPlayer.name, JSON.stringify(currentGame.player1));
 }
 
 function adjustWins(game, player) {
