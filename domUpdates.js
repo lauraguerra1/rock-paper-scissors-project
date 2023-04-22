@@ -12,15 +12,25 @@ function switchView(domElement, display) {
 }
 
 function logOut() {
+  var hiddenElements = [
+    errorMsg, 
+    logOutBtn, 
+    changeGameBtn, 
+    humanWins, 
+    computerWins
+  ];
+  hiddenElements.forEach((element) => switchView(element, 'hide'));
+  clearLoginPage();
+  switchView(loginView);
+}
+
+function clearLoginPage() {
   currentGame = null;
-  userName.value = '';
   selectedToken = null;
+  userName.value = '';
   playerName.innerText = 'Human'
   playerIcon.src = './icons/person-icon.webp';
   tokenOptions.forEach((token) => token.classList.remove('selected-token'));
-  var hiddenElements = [errorMsg, logOutBtn, changeGameBtn, humanWins, computerWins];
-  hiddenElements.forEach((element) => switchView(element, 'hide'));
-  switchView(loginView);
 }
 
 function changeTokenDisplay(e) {
