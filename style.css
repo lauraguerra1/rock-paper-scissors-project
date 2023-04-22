@@ -41,6 +41,17 @@ img {
   align-items: center;
 }
 
+.resume-restart-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-message, .resume-restart {
+  margin-top: 5%;
+}
+
 .login-view, form {
   display: flex;
   flex-direction: column;
@@ -103,6 +114,10 @@ button {
   cursor: pointer;
 }
 
+.resume-restart {
+  padding: 5%;
+}
+
 .login-button {
   background:rgb(244, 206, 213);
   height: 30px;
@@ -117,7 +132,7 @@ input {
   text-align: center;
 }
 
-.change-game-button {
+.change-game-button, .log-out-button{
   margin-top: 50%;
   background: pink;
 }
