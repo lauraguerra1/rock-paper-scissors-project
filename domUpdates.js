@@ -18,11 +18,8 @@ function logOut() {
   playerName.innerText = 'Human'
   playerIcon.src = './icons/person-icon.webp';
   tokenOptions.forEach((token) => token.classList.remove('selected-token'));
-  switchView(errorMsg, 'hide');
-  switchView(logOutBtn, 'hide');
-  switchView(changeGameBtn, 'hide');
-  switchView(humanWins, 'hide');
-  switchView(computerWins, 'hide');
+  var hiddenElements = [errorMsg, logOutBtn, changeGameBtn, humanWins, computerWins];
+  hiddenElements.forEach((element) => switchView(element, 'hide'));
   switchView(loginView);
 }
 
