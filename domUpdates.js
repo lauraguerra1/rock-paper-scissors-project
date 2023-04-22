@@ -20,6 +20,7 @@ function logOut() {
     computerWins
   ];
   hiddenElements.forEach((element) => switchView(element, 'hide'));
+  switchView(resumeGameBtn, 'show');
   clearLoginPage();
   switchView(loginView);
 }

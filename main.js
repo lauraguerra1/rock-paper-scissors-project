@@ -60,6 +60,9 @@ function logIn() {
     currentGame = JSON.parse(existingGame);
     currentGame.player1.token = selectedToken;
     updatePlayerInfo(currentGame.player1);
+    if (!currentGame.mode) {
+      switchView(resumeGameBtn, 'hide')
+    }
     switchView(resumeView);
     mainMsg.innerText = '';
   } else  {
@@ -71,11 +74,7 @@ function resumeGame() {
   updateWinsDisplay(currentGame.player1, currentGame.player2);
   switchView(humanWins, 'show');
   switchView(computerWins, 'show');
-  if (currentGame.mode) {
-    showFighterChoices(currentGame.mode);
-  } else {
-    switchToHome();
-  }
+  showFighterChoices(currentGame.mode);
 }
 
 function startNewGame(name) {
