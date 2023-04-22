@@ -179,6 +179,7 @@ function takeTurn(e) {
   setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2);
   setTimeout(showFighterChoices, 2000, currentGame.mode);
   setTimeout(switchView, 2000, changeGameBtn, 'show');
+  setTimeout(switchView, 2000, logOutBtn, 'show');
 }
 
 function createWinMsg(game) {
