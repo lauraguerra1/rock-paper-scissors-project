@@ -41,6 +41,17 @@ img {
   align-items: center;
 }
 
+.resume-restart-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-message, .resume-restart {
+  margin-top: 5%;
+}
+
 .login-view, form {
   display: flex;
   flex-direction: column;
@@ -65,6 +76,7 @@ img {
   border-radius: 10px;
   background:rgb(172, 172, 235);
 }
+
 .game-mode {
   border-radius: 5%;
   background: rgb(244, 206, 213);
@@ -103,6 +115,10 @@ button {
   cursor: pointer;
 }
 
+.resume-restart {
+  padding: 5%;
+}
+
 .login-button {
   background:rgb(244, 206, 213);
   height: 30px;
@@ -117,7 +133,7 @@ input {
   text-align: center;
 }
 
-.change-game-button {
+.change-game-button, .log-out-button{
   margin-top: 50%;
   background: pink;
 }
@@ -177,6 +193,10 @@ button:hover {
 /* MEDIA QUERIES */
 
 @media screen and (max-width: 1285px) {
+  .game-console {
+    max-width: 60%;
+  }
+
   .fighter {
     height: 250px;
     width: 250px;
@@ -206,9 +226,6 @@ button:hover {
 }
 
 @media screen and (max-width: 480px) {
-  .game-console {
-    width: 60%;
-  }
 
   .player-section {
     height: 120%
@@ -238,10 +255,6 @@ button:hover {
   .fighter {
     height: 150px;
     width: 150px;
-  }
-  
-  .game-console {
-    width: 60%;
   }
   
   .game-mode {

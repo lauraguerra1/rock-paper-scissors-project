@@ -11,14 +11,35 @@ function switchView(domElement, display) {
   }
 }
 
+function logOut() {
+  var hiddenElements = [
+    errorMsg, 
+    logOutBtn, 
+    changeGameBtn, 
+    humanWins, 
+    computerWins
+  ];
+  hiddenElements.forEach((element) => switchView(element, 'hide'));
+  switchView(resumeGameBtn, 'show');
+  clearLoginPage();
+  switchView(loginView);
+}
+
+function clearLoginPage() {
+  currentGame = null;
+  selectedToken = null;
+  userName.value = '';
+  playerName.innerText = 'Human'
+  playerIcon.src = './icons/person-icon.webp';
+  tokenOptions.forEach((token) => token.classList.remove('selected-token'));
+}
+
 function changeTokenDisplay(e) {
-  document
-    .querySelectorAll('.token-option')
-    .forEach((token) => token.classList.remove('selected-token'));
+  tokenOptions.forEach((token) => token.classList.remove('selected-token'));
   e.target.classList.add('selected-token');
 }
 
-function updatePlayerInfo() {
+function updatePlayerInfo(human) {
   var tokens = {
     '💁‍♀️': 'icons/waving-person.png',
     '🤠': 'icons/cowboy.png',
@@ -27,14 +48,15 @@ function updatePlayerInfo() {
     '🌸': 'icons/flower.png'
   };
 
-  document.querySelector('.player-name').innerText = humanPlayer.name;
-  document.querySelector('.person-icon').src = tokens[humanPlayer.token];
-  consoleIcons.forEach((icon) => (icon.src = tokens[humanPlayer.token]));
+  playerName.innerText = human.name;
+  playerIcon.src = tokens[human.token];
+  consoleIcons.forEach((icon) => (icon.src = tokens[human.token]));
 }
 
 function switchToHome() {
   switchView(homeView);
   switchView(changeGameBtn, 'hide');
+  switchView(logOutBtn, 'show')
   mainMsg.innerText = 'Choose your game!';
 }
 

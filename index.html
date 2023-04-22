@@ -16,8 +16,9 @@
     <section class="player-section">
       <img class="person-icon" src="./icons/person-icon.webp" alt="person icon">
       <p class="player-name">Human</p>
-      <p class="human-wins">Wins: 0</p>
+      <p class="human-wins hidden">Wins: 0</p>
       <button class="change-game-button hidden">Change game?</button>
+      <button class="log-out-button hidden">Log Out</button>
     </section>
     <section class="game-console">
       <h1>Rock, Paper, Scissors</h1>
@@ -29,14 +30,19 @@
         </form>
         <p>Choose your token:</p>
         <section class="token-wrapper">
-          <img class="token-option 💁‍♀️" src="./icons/waving-person.png" alt="person waving emoji">
-          <img class="token-option 🤠" src="./icons/cowboy.png" alt="cowboy emoji">
-          <img class="token-option 🦄" src="./icons/unicorn.png" alt="unicorn emoji">
-          <img class="token-option 🦋" src="./icons/butterfly.png" alt="butterly emoji">
-          <img class="token-option 🌸" src="./icons/flower.png" alt="flower emoji">  
+          <img tabindex="0" class="token-option 💁‍♀️" src="./icons/waving-person.png" alt="person waving emoji">
+          <img tabindex="0" class="token-option 🤠" src="./icons/cowboy.png" alt="cowboy emoji">
+          <img tabindex="0" class="token-option 🦄" src="./icons/unicorn.png" alt="unicorn emoji">
+          <img tabindex="0" class="token-option 🦋" src="./icons/butterfly.png" alt="butterly emoji">
+          <img tabindex="0" class="token-option 🌸" src="./icons/flower.png" alt="flower emoji">  
         </section>
           <button class="login-button">Login</button>
           <p class="error-message hidden">Please enter your name <em>and</em> choose your token!</p>
+      </section>
+      <section class="resume-restart-view view hidden">
+        <img class="welcome-message" src="./icons/welcome-back.gif" alt="welcome back message">
+        <button class="resume-restart resume-game">RESUME GAME</button>
+        <button class="resume-restart restart-game">START NEW GAME</button>
       </section>
       <section class="home-view view hidden">
         <section class="game-mode" id="classic">
@@ -107,7 +113,7 @@
     <section class="player-section">
       <img class="computer-icon" src="./icons/computer-icon.webp" alt="laptop icon">
       <p>Computer</p>
-      <p class="computer-wins">Wins: 0</p>
+      <p class="computer-wins hidden">Wins: 0</p>
     </section>
   </main>
   <script src="domUpdates.js"></script>

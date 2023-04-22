@@ -13,19 +13,31 @@ var consoleIcons = document.querySelectorAll('.console-person-icon');
 var loginView = document.querySelector('.login-view');
 var loginBtn = document.querySelector('.login-button');
 var tokenSection = document.querySelector('.token-wrapper');
+var resumeView = document.querySelector('.resume-restart-view');
+var resumeGameBtn = document.querySelector('.resume-game');
+var restartGameBtn = document.querySelector('.restart-game');
+var logOutBtn = document.querySelector('.log-out-button');
+var userName = document.querySelector('#name');
+var errorMsg = document.querySelector('.error-message');
+var playerIcon = document.querySelector('.person-icon');
+var playerName = document.querySelector('.player-name');
+var tokenOptions = document.querySelectorAll('.token-option');
 
 var currentGame;
-var humanPlayer;
-var computerPlayer;
 var selectedToken;
 
 
 // EVENT LISTENERS
 tokenSection.addEventListener('click', selectToken);
 loginBtn.addEventListener('click', logIn);
-gameModes.forEach((mode) => mode.addEventListener('click', startNewGame));
+gameModes.forEach((mode) => mode.addEventListener('click', changeGameMode));
 choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
 changeGameBtn.addEventListener('click', switchToHome);
+resumeGameBtn.addEventListener('click', resumeGame);
+restartGameBtn.addEventListener('click', function() {
+  startNewGame(currentGame.player1.name);
+});
+logOutBtn.addEventListener('click', logOut)
 
 //EVENT HANDLERS 
 function getRandomIndex(array) {
@@ -40,16 +52,39 @@ function selectToken(e) {
 }
 
 function logIn() {
-  var userName = document.querySelector('#name');
-  var errorMsg = document.querySelector('.error-message');
+  var existingGame = localStorage.getItem(userName.value.toLowerCase());
   if (!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
-  } else {
-    humanPlayer = createPlayer(userName.value, selectedToken);
-    computerPlayer = createPlayer('computer', '💻');
-    updatePlayerInfo();
-    switchToHome();
+    return null; 
+  } if (existingGame) {
+    currentGame = JSON.parse(existingGame);
+    currentGame.player1.token = selectedToken;
+    updatePlayerInfo(currentGame.player1);
+    if (!currentGame.mode) {
+      switchView(resumeGameBtn, 'hide')
+    }
+    switchView(resumeView);
+    mainMsg.innerText = '';
+  } else  {
+    startNewGame(userName.value);
   }
+}
+
+function resumeGame() {
+  updateWinsDisplay(currentGame.player1, currentGame.player2);
+  switchView(humanWins, 'show');
+  switchView(computerWins, 'show');
+  showFighterChoices(currentGame.mode);
+}
+
+function startNewGame(name) {
+  currentGame = createGame(createPlayer(name, selectedToken), createPlayer('computer', '💻'));
+  localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
+  updatePlayerInfo(currentGame.player1);
+  updateWinsDisplay(currentGame.player1, currentGame.player2)
+  switchView(humanWins, 'show');
+  switchView(computerWins, 'show');
+  switchToHome();
 }
 
 function createPlayer(name, token) {
@@ -61,23 +96,31 @@ function createPlayer(name, token) {
   };
 }
 
-function createGame(mode, player1, player2) {
-  var boardType = {
-    classic: ['rock', 'paper', 'scissors'],
-    hippie: ['rock', 'paper', 'scissors', 'love', 'peace'],
-  };
+function createGame(player1, player2) {
   return {
-    mode: mode,
-    board: boardType[mode],
+    mode: null,
+    board: null,
     player1: player1,
     player2: player2,
     winner: null
   };
 }
 
-function startNewGame(e) {
-  currentGame = createGame(e.target.parentNode.id, humanPlayer, computerPlayer);
+function changeGameMode(e) {
+  currentGame = chooseGameMode(currentGame, e)
   showFighterChoices(currentGame.mode);
+}
+
+function chooseGameMode(game, e) {
+  var boardType = {
+    classic: ['rock', 'paper', 'scissors'],
+    hippie: ['rock', 'paper', 'scissors', 'love', 'peace'],
+  };
+
+  var updatedGame = game;
+  updatedGame.mode = e.target.parentNode.id;
+  updatedGame.board = boardType[updatedGame.mode];
+  return updatedGame; 
 }
 
 function chooseFighters(game, selection1, selection2) {
@@ -114,6 +157,7 @@ function checkWins(game, selection1, selection2) {
   } else {
     currentGame = adjustWins(updatedGame, 'player2');
   }
+  localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
 }
 
 function adjustWins(game, player) {
@@ -135,6 +179,7 @@ function takeTurn(e) {
   setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2);
   setTimeout(showFighterChoices, 2000, currentGame.mode);
   setTimeout(switchView, 2000, changeGameBtn, 'show');
+  setTimeout(switchView, 2000, logOutBtn, 'show');
 }
 
 function createWinMsg(game) {
