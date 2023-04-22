@@ -13,6 +13,15 @@ var consoleIcons = document.querySelectorAll('.console-person-icon');
 var loginView = document.querySelector('.login-view');
 var loginBtn = document.querySelector('.login-button');
 var tokenSection = document.querySelector('.token-wrapper');
+var resumeView = document.querySelector('.resume-restart-view');
+var resumeGameBtn = document.querySelector('.resume-game');
+var restartGameBtn = document.querySelector('.restart-game');
+var logOutBtn = document.querySelector('.log-out-button');
+var userName = document.querySelector('#name');
+var errorMsg = document.querySelector('.error-message');
+var playerIcon = document.querySelector('.person-icon');
+var playerName = document.querySelector('.player-name');
+var tokenOptions = document.querySelectorAll('.token-option');
 
 var currentGame;
 var selectedToken;
@@ -21,9 +30,14 @@ var selectedToken;
 // EVENT LISTENERS
 tokenSection.addEventListener('click', selectToken);
 loginBtn.addEventListener('click', logIn);
-gameModes.forEach((mode) => mode.addEventListener('click', startNewGame));
+gameModes.forEach((mode) => mode.addEventListener('click', changeGameMode));
 choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
 changeGameBtn.addEventListener('click', switchToHome);
+resumeGameBtn.addEventListener('click', resumeGame);
+restartGameBtn.addEventListener('click', function() {
+  startNewGame(currentGame.player1.name);
+});
+logOutBtn.addEventListener('click', logOut)
 
 //EVENT HANDLERS 
 function getRandomIndex(array) {
@@ -38,9 +52,7 @@ function selectToken(e) {
 }
 
 function logIn() {
-  var userName = document.querySelector('#name');
   var existingGame = localStorage.getItem(userName.value.toLowerCase());
-  var errorMsg = document.querySelector('.error-message');
   if (!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
     return null; 
@@ -48,14 +60,32 @@ function logIn() {
     currentGame = JSON.parse(existingGame);
     currentGame.player1.token = selectedToken;
     updatePlayerInfo(currentGame.player1);
-    updateWinsDisplay(currentGame.player1, currentGame.player2);
-    switchToHome();
+    switchView(resumeView);
+    mainMsg.innerText = '';
   } else  {
-    currentGame = createGame(createPlayer(userName.value, selectedToken), createPlayer('computer', '💻'));
-    localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
-    updatePlayerInfo(currentGame.player1);
+    startNewGame(userName.value);
+  }
+}
+
+function resumeGame() {
+  updateWinsDisplay(currentGame.player1, currentGame.player2);
+  switchView(humanWins, 'show');
+  switchView(computerWins, 'show');
+  if (currentGame.mode) {
+    showFighterChoices(currentGame.mode);
+  } else {
     switchToHome();
   }
+}
+
+function startNewGame(name) {
+  currentGame = createGame(createPlayer(name, selectedToken), createPlayer('computer', '💻'));
+  localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
+  updatePlayerInfo(currentGame.player1);
+  updateWinsDisplay(currentGame.player1, currentGame.player2)
+  switchView(humanWins, 'show');
+  switchView(computerWins, 'show');
+  switchToHome();
 }
 
 function createPlayer(name, token) {
@@ -77,7 +107,7 @@ function createGame(player1, player2) {
   };
 }
 
-function startNewGame(e) {
+function changeGameMode(e) {
   currentGame = chooseGameMode(currentGame, e)
   showFighterChoices(currentGame.mode);
 }
