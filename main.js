@@ -57,13 +57,18 @@ function logIn() {
     switchView(errorMsg, 'show');
     return null; 
   } if (existingGame) {
-    currentGame = JSON.parse(existingGame);
-    currentGame.player1.token = selectedToken;
+    currentGame = loadSavedGame(selectedToken, existingGame)
     updatePlayerInfo(currentGame.player1);
     showResumeView(currentGame);
   } else  {
     startNewGame(userName.value);
   }
+}
+
+function loadSavedGame(token, savedGame) {
+  var updatedGame = JSON.parse(savedGame);
+  updatedGame.player1.token = token;
+  return updatedGame; 
 }
 
 function resumeGame() {
