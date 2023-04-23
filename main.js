@@ -55,8 +55,7 @@ function logIn() {
   var existingGame = localStorage.getItem(userName.value.toLowerCase());
   if (!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
-    return null; 
-  } if (existingGame) {
+  } else if (existingGame) {
     currentGame = loadSavedGame(selectedToken, existingGame)
     updatePlayerInfo(currentGame.player1);
     showResumeView(currentGame);
