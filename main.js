@@ -60,11 +60,7 @@ function logIn() {
     currentGame = JSON.parse(existingGame);
     currentGame.player1.token = selectedToken;
     updatePlayerInfo(currentGame.player1);
-    if (!currentGame.mode) {
-      switchView(resumeGameBtn, 'hide')
-    }
-    switchView(resumeView);
-    mainMsg.innerText = '';
+    showResumeView(currentGame);
   } else  {
     startNewGame(userName.value);
   }
