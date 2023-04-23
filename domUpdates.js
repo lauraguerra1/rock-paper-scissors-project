@@ -25,6 +25,14 @@ function logOut() {
   switchView(loginView);
 }
 
+function showResumeView(game) {
+  if (!game.mode) {
+    switchView(resumeGameBtn, 'hide')
+  }
+  switchView(resumeView);
+  mainMsg.innerText = '';
+}
+
 function clearLoginPage() {
   currentGame = null;
   selectedToken = null;

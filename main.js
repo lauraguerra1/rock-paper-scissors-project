@@ -55,19 +55,19 @@ function logIn() {
   var existingGame = localStorage.getItem(userName.value.toLowerCase());
   if (!userName.value || !selectedToken) {
     switchView(errorMsg, 'show');
-    return null; 
-  } if (existingGame) {
-    currentGame = JSON.parse(existingGame);
-    currentGame.player1.token = selectedToken;
+  } else if (existingGame) {
+    currentGame = loadSavedGame(selectedToken, existingGame)
     updatePlayerInfo(currentGame.player1);
-    if (!currentGame.mode) {
-      switchView(resumeGameBtn, 'hide')
-    }
-    switchView(resumeView);
-    mainMsg.innerText = '';
+    showResumeView(currentGame);
   } else  {
     startNewGame(userName.value);
   }
+}
+
+function loadSavedGame(token, savedGame) {
+  var updatedGame = JSON.parse(savedGame);
+  updatedGame.player1.token = token;
+  return updatedGame; 
 }
 
 function resumeGame() {
