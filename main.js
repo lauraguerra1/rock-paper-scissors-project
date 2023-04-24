@@ -5,8 +5,6 @@ var changeGameBtn = document.querySelector('.change-game-button');
 var homeView = document.querySelector('.home-view');
 var mainMsg = document.querySelector('.main-message');
 var winnerView = document.querySelector('.winner-view');
-var humanSelection = document.querySelector('.human-selection');
-var computerSelection = document.querySelector('.computer-selection');
 var humanWins = document.querySelector('.human-wins');
 var computerWins = document.querySelector('.computer-wins');
 var consoleIcons = document.querySelectorAll('.console-person-icon');
@@ -28,10 +26,16 @@ var selectedToken;
 
 
 // EVENT LISTENERS
-tokenSection.addEventListener('click', selectToken);
+tokenSection.addEventListener('click', function(e) {
+  selectToken(e)
+});
 loginBtn.addEventListener('click', logIn);
-gameModes.forEach((mode) => mode.addEventListener('click', changeGameMode));
-choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
+gameModes.forEach((mode) => mode.addEventListener('click', function(e) {
+  changeGameMode(e)
+}));
+choiceViews.forEach((view) => view.addEventListener('click', function(e) {
+  takeTurn(e)
+}));
 changeGameBtn.addEventListener('click', switchToHome);
 resumeGameBtn.addEventListener('click', resumeGame);
 restartGameBtn.addEventListener('click', function() {
@@ -40,6 +44,11 @@ restartGameBtn.addEventListener('click', function() {
 logOutBtn.addEventListener('click', logOut)
 
 //EVENT HANDLERS 
+function resetDataModel() {
+  currentGame = null;
+  selectedToken = null;
+}
+
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
@@ -78,7 +87,7 @@ function resumeGame() {
 }
 
 function startNewGame(name) {
-  currentGame = createGame(createPlayer(name, selectedToken), createPlayer('computer', '💻'));
+  currentGame = createGame(name, selectedToken);
   localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
   updatePlayerInfo(currentGame.player1);
   updateWinsDisplay(currentGame.player1, currentGame.player2)
@@ -96,12 +105,12 @@ function createPlayer(name, token) {
   };
 }
 
-function createGame(player1, player2) {
+function createGame(name, token) {
   return {
     mode: null,
     board: null,
-    player1: player1,
-    player2: player2,
+    player1: createPlayer(name, token),
+    player2: createPlayer('computer', '💻'),
     winner: null
   };
 }

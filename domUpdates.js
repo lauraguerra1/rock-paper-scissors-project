@@ -5,9 +5,9 @@ function switchView(domElement, display) {
     domElement.classList.add('hidden');
   } else {
     var allViews = Array.from(document.querySelectorAll('.view'));
-    domElement.classList.remove('hidden');
     var hiddenViews = allViews.filter((view) => view !== domElement);
     hiddenViews.forEach((view) => view.classList.add('hidden'));
+    domElement.classList.remove('hidden');
   }
 }
 
@@ -34,8 +34,7 @@ function showResumeView(game) {
 }
 
 function clearLoginPage() {
-  currentGame = null;
-  selectedToken = null;
+  resetDataModel();
   userName.value = '';
   playerName.innerText = 'Human'
   playerIcon.src = './icons/person-icon.webp';
@@ -82,8 +81,8 @@ function displayResults() {
 
 function uploadResults(game) {
   winMsg = createWinMsg(game);
-  humanSelection.innerHTML = game.player1.selection.innerHTML;
-  computerSelection.innerHTML = game.player2.selection.innerHTML;
+  document.querySelector('.human-selection').innerHTML = game.player1.selection.innerHTML;
+  document.querySelector('.computer-selection').innerHTML = game.player2.selection.innerHTML;
   mainMsg.innerText = winMsg[game.winner];
 }
 
