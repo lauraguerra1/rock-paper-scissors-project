@@ -44,6 +44,11 @@ restartGameBtn.addEventListener('click', function() {
 logOutBtn.addEventListener('click', logOut)
 
 //EVENT HANDLERS 
+function resetDataModel() {
+  currentGame = null;
+  selectedToken = null;
+}
+
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
