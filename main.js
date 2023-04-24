@@ -32,7 +32,9 @@ tokenSection.addEventListener('click', function(e) {
   selectToken(e)
 });
 loginBtn.addEventListener('click', logIn);
-gameModes.forEach((mode) => mode.addEventListener('click', changeGameMode));
+gameModes.forEach((mode) => mode.addEventListener('click', function(e) {
+  changeGameMode(e)
+}));
 choiceViews.forEach((view) => view.addEventListener('click', function(e) {
   takeTurn(e)
 }));
