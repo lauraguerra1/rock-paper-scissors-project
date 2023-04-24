@@ -28,10 +28,14 @@ var selectedToken;
 
 
 // EVENT LISTENERS
-tokenSection.addEventListener('click', selectToken);
+tokenSection.addEventListener('click', function(e) {
+  selectToken(e)
+});
 loginBtn.addEventListener('click', logIn);
 gameModes.forEach((mode) => mode.addEventListener('click', changeGameMode));
-choiceViews.forEach((view) => view.addEventListener('click', takeTurn));
+choiceViews.forEach((view) => view.addEventListener('click', function(e) {
+  takeTurn(e)
+}));
 changeGameBtn.addEventListener('click', switchToHome);
 resumeGameBtn.addEventListener('click', resumeGame);
 restartGameBtn.addEventListener('click', function() {
