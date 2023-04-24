@@ -84,7 +84,7 @@ function resumeGame() {
 }
 
 function startNewGame(name) {
-  currentGame = createGame(createPlayer(name, selectedToken), createPlayer('computer', '💻'));
+  currentGame = createGame(name, selectedToken);
   localStorage.setItem(currentGame.player1.name.toLowerCase(), JSON.stringify(currentGame));
   updatePlayerInfo(currentGame.player1);
   updateWinsDisplay(currentGame.player1, currentGame.player2)
@@ -102,12 +102,12 @@ function createPlayer(name, token) {
   };
 }
 
-function createGame(player1, player2) {
+function createGame(name, token) {
   return {
     mode: null,
     board: null,
-    player1: player1,
-    player2: player2,
+    player1: createPlayer(name, token),
+    player2: createPlayer('computer', '💻'),
     winner: null
   };
 }
