@@ -82,8 +82,8 @@ function displayResults() {
 
 function uploadResults(game) {
   winMsg = createWinMsg(game);
-  humanSelection.innerHTML = game.player1.selection.innerHTML;
-  computerSelection.innerHTML = game.player2.selection.innerHTML;
+  document.querySelector('.human-selection').innerHTML = game.player1.selection.innerHTML;
+  document.querySelector('.computer-selection').innerHTML = game.player2.selection.innerHTML;
   mainMsg.innerText = winMsg[game.winner];
 }
 
