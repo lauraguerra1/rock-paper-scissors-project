@@ -16,10 +16,12 @@ localStorage | JSON
 </div>
 
 ## Installation Instructions 
+
 - Fork this repository.
 - Copy the SSH key and clone it to your local directory. 
 - `cd` into the repository 
 - run `open index.html` to open the site via the default browser. 
+- Alternatively, one may visit the deployed page for this project [here!](https://lauraguerra1.github.io/rock-paper-scissors-project/)
 
 ## Preview of App:
 <img src='./RPSGIF.gif' alt="preview of app">
