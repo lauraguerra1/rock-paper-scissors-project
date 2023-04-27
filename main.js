@@ -183,15 +183,8 @@ function takeTurn(e) {
   var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
   checkWins(currentGame, selection1, selection2);
   showPersonIcon(e);
-  // setTimeout(removePersonIcon, 500);
-  // setTimeout(displayResults, 500);
-  // setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2);
-  // setTimeout(showFighterChoices, 2000, currentGame.mode);
-  // setTimeout(switchView, 2000, changeGameBtn, 'show');
-  // setTimeout(switchView, 2000, logOutBtn, 'show');
-  setTimeout(displayWinView, 500);
+  setTimeout(displayResults, 500);
   setTimeout(returnToGame, 2000);
-
 }
 
 function createWinMsg(game) {

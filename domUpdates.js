@@ -74,15 +74,11 @@ function showFighterChoices(mode) {
 }
 
 function displayResults() {
+  removePersonIcon();
   uploadResults(currentGame);
   displayGif();
   switchView(winnerView);
-}
-
-function displayWinView() {
-  removePersonIcon();
-  displayResults();
-  updateWinsDisplay(currentGame.player1, currentGame.player2)
+  updateWinsDisplay(currentGame.player1, currentGame.player2);
 }
 
 function returnToGame(){
