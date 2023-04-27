@@ -79,6 +79,17 @@ function displayResults() {
   switchView(winnerView);
 }
 
+function displayWinView() {
+  removePersonIcon();
+  displayResults();
+  updateWinsDisplay(currentGame.player1, currentGame.player2)
+}
+
+function returnToGame(){
+  showFighterChoices(currentGame.mode);
+  [changeGameBtn, logOutBtn].forEach((btn) => switchView(btn, 'show'));
+}
+
 function uploadResults(game) {
   winMsg = createWinMsg(game);
   document.querySelector('.human-selection').innerHTML = game.player1.selection.innerHTML;
