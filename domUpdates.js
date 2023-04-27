@@ -23,6 +23,8 @@ function logOut() {
   switchView(resumeGameBtn, 'show');
   clearLoginPage();
   switchView(loginView);
+  mainMsg.innerText = `Welcome, please log-in!`;
+  clearTimeout(timer)
 }
 
 function showResumeView(game) {
