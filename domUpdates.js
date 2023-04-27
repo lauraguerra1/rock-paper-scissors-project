@@ -65,6 +65,7 @@ function switchToHome() {
   switchView(changeGameBtn, 'hide');
   switchView(logOutBtn, 'show')
   mainMsg.innerText = 'Choose your game!';
+  clearTimeout(timer);
 }
 
 function showFighterChoices(mode) {
@@ -74,9 +75,16 @@ function showFighterChoices(mode) {
 }
 
 function displayResults() {
+  removePersonIcon();
   uploadResults(currentGame);
   displayGif();
   switchView(winnerView);
+  updateWinsDisplay(currentGame.player1, currentGame.player2);
+}
+
+function returnToGame(){
+  showFighterChoices(currentGame.mode);
+  [changeGameBtn, logOutBtn].forEach((btn) => switchView(btn, 'show'));
 }
 
 function uploadResults(game) {

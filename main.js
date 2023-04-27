@@ -23,6 +23,7 @@ var tokenOptions = document.querySelectorAll('.token-option');
 
 var currentGame;
 var selectedToken;
+var timer;
 
 
 // EVENT LISTENERS
@@ -179,16 +180,12 @@ function adjustWins(game, player) {
 }
 
 function takeTurn(e) {
-  var selection1 = e.target.closest('section').classList[1];
-  var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
-  checkWins(currentGame, selection1, selection2);
+  var playerSelection = e.target.closest('section').classList[1];
+  var compSelection = currentGame.board[getRandomIndex(currentGame.board)];
+  checkWins(currentGame, playerSelection, compSelection);
   showPersonIcon(e);
-  setTimeout(removePersonIcon, 500);
   setTimeout(displayResults, 500);
-  setTimeout(updateWinsDisplay, 500, currentGame.player1, currentGame.player2);
-  setTimeout(showFighterChoices, 2000, currentGame.mode);
-  setTimeout(switchView, 2000, changeGameBtn, 'show');
-  setTimeout(switchView, 2000, logOutBtn, 'show');
+  timer = setTimeout(returnToGame, 2000);
 }
 
 function createWinMsg(game) {
