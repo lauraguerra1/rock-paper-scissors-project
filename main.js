@@ -180,9 +180,9 @@ function adjustWins(game, player) {
 }
 
 function takeTurn(e) {
-  var selection1 = e.target.closest('section').classList[1];
-  var selection2 = currentGame.board[getRandomIndex(currentGame.board)];
-  checkWins(currentGame, selection1, selection2);
+  var playerSelection = e.target.closest('section').classList[1];
+  var compSelection = currentGame.board[getRandomIndex(currentGame.board)];
+  checkWins(currentGame, playerSelection, compSelection);
   showPersonIcon(e);
   setTimeout(displayResults, 500);
   timer = setTimeout(returnToGame, 2000);
