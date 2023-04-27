@@ -23,6 +23,7 @@ var tokenOptions = document.querySelectorAll('.token-option');
 
 var currentGame;
 var selectedToken;
+var timer;
 
 
 // EVENT LISTENERS
@@ -184,7 +185,7 @@ function takeTurn(e) {
   checkWins(currentGame, selection1, selection2);
   showPersonIcon(e);
   setTimeout(displayResults, 500);
-  setTimeout(returnToGame, 2000);
+  timer = setTimeout(returnToGame, 2000);
 }
 
 function createWinMsg(game) {

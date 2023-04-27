@@ -65,6 +65,7 @@ function switchToHome() {
   switchView(changeGameBtn, 'hide');
   switchView(logOutBtn, 'show')
   mainMsg.innerText = 'Choose your game!';
+  clearTimeout(timer);
 }
 
 function showFighterChoices(mode) {
