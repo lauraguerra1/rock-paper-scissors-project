@@ -38,6 +38,10 @@ localStorage | JSON
 [Laura Garcia Guerra](https://github.com/lauraguerra1)
 
 ## Learning Goals:
+1. Solidify and demonstrate  understanding of:
+- DRY JavaScript
+- event delegation to handle similar event listeners
+2. Understand the difference between the data model and how the data is displayed on the DOM
 
 ## Wins & Challenges: 
 - <em>Biggest Win</em>: 
